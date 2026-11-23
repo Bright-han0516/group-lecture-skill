@@ -65,7 +65,7 @@ Only then start my topic. Do not skip these steps.
 |---|---|---|
 | XeLaTeX + TeX Live | Build the PDFs | `tlmgr` / TinyTeX; full TeX Live recommended |
 | `fontspec`, `xeCJK`, `tcolorbox`, `tikz`, `tabularx`, `needspace`, `lastpage`, `hyperref` | Template | `tlmgr install ...` |
-| Python 3.9+ and PyMuPDF | Cropping, QA | `pip install pymupdf`; verify with `python3 -c "import fitz"` |
+| Python 3.9+ and PyMuPDF | Cropping, QA | `pip install -r requirements.txt`; verify with `python3 -c "import fitz"` |
 | Poppler (`pdftoppm`, `pdffonts`, `pdfinfo`) | Preview, font check | optional but recommended |
 | CJK font | Chinese solutions in the key | macOS Songti SC, or `tlmgr install fandol` |
 
@@ -157,4 +157,5 @@ past papers, mark schemes, a school logo or student data to this repository. See
 ## License
 
 Code and documentation: MIT (see `LICENSE`). Bundled fonts keep their own licenses;
-see `NOTICE` and `template/fonts/GUST-FONT-LICENSE.txt`.
+see `NOTICE` and `template/fonts/GUST-FONT-LICENSE.txt`. PyMuPDF is not bundled; it is
+AGPL-3.0/commercial, so check its license before redistributing a bundled environment.

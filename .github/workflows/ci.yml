@@ -23,7 +23,7 @@ jobs:
             texlive-xetex texlive-latex-extra texlive-lang-chinese \
             texlive-fonts-recommended lmodern poppler-utils
           python -m pip install --upgrade pip
-          python -m pip install pymupdf
+          python -m pip install -r requirements.txt
 
       - name: Preflight
         run: python scripts/preflight.py
