@@ -9,14 +9,14 @@ XeLaTeX; the review prompt does not.
 You are using the group-lecture-skill repository.
 
 1. Read AGENTS.md, README.md and SKILL.md.
-2. Run: python3 scripts/preflight.py
-   If it fails, stop and list every missing item with its fix line.
-3. Run the demo:
-   (cd examples/demo && ./build.sh)
-   python3 scripts/check_topic.py examples/demo/Demo_Topic
-   Both PDFs must PASS, and the student edition must have zh=0.
-4. Only after 1-3 pass, start my topic:
-   - ask me for board, topic code, level, hours, chapter map and course root
+2. Run: ./bootstrap.sh
+   If it fails, stop and list every FAIL line with its fix hint.
+3. If it passes, read MATERIALS.md and ask me for every missing item:
+   board/code/title, level/hours, syllabus path, textbook path + page offset,
+   past-paper folder + allowed range, mark-scheme folder, course root, output rules.
+   Do not start writing if the syllabus or question corpus is missing.
+4. Only after that, start my topic:
+   - propose a 3-5 chapter map and get my confirmation
    - scaffold with scripts/scaffold_topic.py
    - write body + practice as described in references/pipeline.md
    - build and run check_topic.py; show me the gate output

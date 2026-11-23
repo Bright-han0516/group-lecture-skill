@@ -1,5 +1,7 @@
 # group-lecture-skill
 
+[中文说明](README.zh-CN.md)
+
 A self-contained skill for building **group-style topic handouts**: one student PDF
 with blanks, one answer-key PDF with answers and Chinese worked solutions. The visual
 design is fixed in a LaTeX template; the model only fills content through macros.
@@ -12,19 +14,44 @@ mark schemes or any school/publisher branding.
 ## 30-second check
 
 Requirements: XeLaTeX (TeX Live / TinyTeX), Python 3.9+, PyMuPDF. Poppler is optional.
-Use the Python interpreter where `python3 -c "import fitz"` succeeds. On macOS this
-is often `/usr/bin/python3`; a Homebrew Python may not have PyMuPDF.
+`bootstrap.sh` picks a Python that actually has PyMuPDF; on macOS this is often
+`/usr/bin/python3`, not a Homebrew Python.
 
 ```bash
-git clone https://github.com/Bright-han0516/group-lecture-skill.git
-cd group-lecture-skill
-python3 scripts/preflight.py
-cd examples/demo && ./build.sh
-python3 ../../scripts/check_topic.py Demo_Topic
+mkdir -p ~/.dsh/skills
+gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-builder
+cd ~/.dsh/skills/group-lecture-builder
+./bootstrap.sh
 ```
 
-Expected: two PDFs in `examples/demo/Demo_Topic/dist/`, and a QA report with
-`PASS` for both. The student edition has `zh=0`; the key contains Chinese solutions.
+`bootstrap.sh` runs preflight, builds the demo, and runs QA in one go. It prints
+`READY` only if all three pass; otherwise it stops at the first failure. Expected:
+two PDFs in `examples/demo/Demo_Topic/dist/` and `PASS` for both. The student edition
+has `zh=0`; the key contains Chinese solutions.
+
+If you prefer the individual commands:
+
+```bash
+python3 scripts/preflight.py
+(cd examples/demo && ./build.sh)
+python3 scripts/check_topic.py examples/demo/Demo_Topic
+```
+
+### One-command agent prompt
+
+Give this to Codex / Kimi Code / Claude Code / DSH (replace the skill directory if
+your host uses a different one):
+
+```text
+Run this, then paste the last 30 lines of output:
+mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
+  ~/.dsh/skills/group-lecture-builder && \
+  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+
+If bootstrap fails, stop and show me the FAIL lines and fix hints.
+If it succeeds, read SKILL.md and ask me for the materials in MATERIALS.md.
+Do not start writing a topic before that.
+```
 
 ## Three ways to use it
 
@@ -45,8 +72,9 @@ Copy-paste prompts for build, review and conversion: [PROMPT.md](PROMPT.md).
 DSH scans `~/.dsh/skills/<name>/SKILL.md`. Clone the repo to the skill name:
 
 ```bash
-git clone https://github.com/Bright-han0516/group-lecture-skill.git \
-  ~/.dsh/skills/group-lecture-builder
+mkdir -p ~/.dsh/skills
+gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-builder
+cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
 ```
 
 Claude Code uses `~/.claude/skills/` in the same way. The repo directory name can
@@ -57,8 +85,8 @@ Then give the agent this bootstrap prompt:
 
 ```text
 Read SKILL.md and references/README.md in this skill.
-Run python3 scripts/preflight.py. If it fails, stop and tell me what is missing.
-Run examples/demo and confirm both PDFs plus QA pass.
+Run ./bootstrap.sh. If it fails, stop and tell me what is missing.
+If it passes, read MATERIALS.md and ask me for the materials it lists.
 Only then start my topic. Do not skip these steps.
 ```
 
@@ -66,6 +94,7 @@ Only then start my topic. Do not skip these steps.
 
 | Dependency | Why | Install |
 |---|---|---|
+| GitHub CLI (`gh`) | Clone the private repo and run the one-command setup | <https://cli.github.com> |
 | XeLaTeX + TeX Live | Build the PDFs | `tlmgr` / TinyTeX; full TeX Live recommended |
 | `fontspec`, `xeCJK`, `tcolorbox`, `tikz`, `tabularx`, `needspace`, `lastpage`, `hyperref` | Template | `tlmgr install ...` |
 | Python 3.9+ and PyMuPDF | Cropping, QA | `pip install -r requirements.txt`; verify with `python3 -c "import fitz"` |
@@ -97,6 +126,8 @@ Output naming: `dist/IB_<Slug>_GroupLecture_Student.pdf` and `..._Key.pdf`, wher
 `<Slug>` is the topic directory name. Override with `GLB_SLUG`.
 
 ## What the skill expects from you
+
+Use [MATERIALS.md](MATERIALS.md) as the checklist. At minimum:
 
 1. Board + topic code.
 2. Level and teaching hours.

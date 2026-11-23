@@ -14,14 +14,22 @@ QA script and a runnable demo are included. Nothing is fetched at build time.
 ## First run (do this before any topic)
 
 ```bash
-python3 scripts/preflight.py          # must exit 0
-(cd examples/demo && ./build.sh)      # must produce two PDFs
-python3 scripts/check_topic.py examples/demo/Demo_Topic   # must PASS
+./bootstrap.sh
 ```
 
-Use the Python interpreter where `python3 -c "import fitz"` succeeds (on macOS this
-is often `/usr/bin/python3`). If preflight fails, stop and report what is missing.
-Do not start writing a topic on a broken toolchain.
+It picks a Python with PyMuPDF, runs preflight, builds the demo (student + key) and
+runs the structural QA. It prints `READY` only if all three pass. If it fails, stop
+and report the FAIL lines; do not start writing a topic on a broken toolchain.
+
+## Materials gate (before writing)
+
+Read `MATERIALS.md` and ask the user for every missing item. At minimum: board and
+topic code, level and hours, syllabus path/section, textbook PDF + page offset,
+past-paper folder + allowed range, official mark-scheme folder, course root, and
+output constraints.
+
+**Do not start writing if the syllabus or the question corpus is missing.** Say what
+is missing; never invent a paper, year, question number, page or mark.
 
 ## Inputs (ask only for what is missing)
 
@@ -34,9 +42,8 @@ Do not start writing a topic on a broken toolchain.
 5. **Question corpus range**: which past papers and mark schemes may be used.
    Never invent a paper, year, question number or mark.
 
-Also needed as source material: syllabus statements, a textbook PDF for figures,
-past papers + official mark schemes. These are **user-supplied**; they are not in
-this repository.
+The full checklist, including the textbook and mark-scheme paths, is in
+`MATERIALS.md`. Those sources are **user-supplied**; they are not in this repository.
 
 ## Pipeline
 
@@ -153,5 +160,6 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
 - `references/practice-and-questions.md` — selecting, cropping and annotating questions.
 - `references/qa-and-registry.md` — QA gates and an optional registry adapter.
 - `references/known-pitfalls.md` — TeX, font, pagination and image traps.
+- `MATERIALS.md` — what the user must provide before writing starts.
 - `template/TOPIC_KIT.md` — the short checklist an author keeps open.
 - `examples/demo/` — a runnable three-chapter example.

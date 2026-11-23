@@ -24,19 +24,25 @@ skill.
 Give the agent this, verbatim:
 
 ```text
-Clone or open this repository, then run:
-1. python3 scripts/preflight.py
-2. (cd examples/demo && ./build.sh)
-3. python3 scripts/check_topic.py examples/demo/Demo_Topic
+Run this, then paste the last 30 lines of output:
 
-Report the exact output. If step 1 fails, stop and list the missing items.
-If step 2 or 3 fails, stop and show the error. Do not continue to a real topic.
+mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
+  ~/.dsh/skills/group-lecture-builder && \
+  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+
+If bootstrap fails, stop and show me the FAIL lines and fix hints.
+If it succeeds, read MATERIALS.md and ask me for the missing materials.
+Do not continue to a real topic yet.
 ```
 
-- All three pass → the host can run the full pipeline.
-- Step 1 fails on `xelatex`/packages → install TeX Live, or use a machine/container
+`bootstrap.sh` runs preflight, the demo build and QA in one pass. It prints `READY`
+only if all three succeed.
+
+- `READY` → the host can run the full pipeline.
+- Preflight fails on `xelatex`/packages → install TeX Live, or use a machine/container
   that has it.
 - The host cannot run commands at all → review-only; use the review prompt.
+- After `READY`, the agent must ask for the items in `MATERIALS.md` before writing.
 
 ## Per-host notes
 

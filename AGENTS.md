@@ -14,13 +14,17 @@ anything.
 ## Before you change code
 
 ```bash
-python3 scripts/preflight.py
-cd examples/demo && ./build.sh
-python3 ../../scripts/check_topic.py Demo_Topic
+./bootstrap.sh
 ```
 
-The demo must be green before and after your change. If it is already red, report
-that first; do not build on a broken baseline.
+It runs preflight, builds the demo and runs QA. The demo must be green before and
+after your change. If it is already red, report that first; do not build on a broken
+baseline. For debugging, the individual commands are in `README.md`.
+
+## Before writing a topic
+
+Read `MATERIALS.md` and ask for every missing item. Do not start if the syllabus or
+the past-paper corpus is missing; do not invent sources to fill the gap.
 
 ## Non-negotiables
 

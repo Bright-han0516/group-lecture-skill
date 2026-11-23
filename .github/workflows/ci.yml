@@ -25,9 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r requirements.txt
 
-      - name: Preflight
-        run: python scripts/preflight.py
-
       - name: Check template copies are in sync
         run: |
           diff template/jt_lecture.tex examples/demo/_模板/jt_lecture.tex
@@ -37,13 +34,10 @@ jobs:
         run: |
           python -m py_compile scripts/*.py
           bash -n scripts/build_topic.sh
+          bash -n bootstrap.sh
 
-      - name: Build demo
-        working-directory: examples/demo
-        run: ./build.sh
-
-      - name: QA demo
-        run: python scripts/check_topic.py examples/demo/Demo_Topic
+      - name: Bootstrap (preflight + demo + QA)
+        run: ./bootstrap.sh
 
       - name: Upload demo PDFs
         uses: actions/upload-artifact@v4
