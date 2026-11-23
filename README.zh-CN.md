@@ -1,5 +1,3 @@
-> **跨项目安装（v0.3 开发分支）**：适用于 Codex / Claude Code 的全局 Skill 注册，见 [安装说明](docs/installation.md)。当前主分支仍保留旧安装方式；新安装脚本合并前请勿将其当作正式发布版本。
-
 # 集团版讲义 Skill（中文说明）
 
 把「一个考局的一个主题」做成两本 PDF：**学生版**（留空、练习）和**答案版**（答案 +
@@ -8,9 +6,35 @@
 这个仓库是可直接分发的版本：模板、字体、`rsfs`、占位素材、QA 脚本和一个能跑的
 demo 都在里面；构建时不联网。
 
+## 不会用终端？直接把下面的话发给 AI
+
+如果你使用的是能访问本地文件、执行命令的 AI 编程助手（例如 Codex 或 Claude Code），可以直接复制这段话，无需自己输入安装命令：
+
+```text
+请帮我安装一个用于制作多学科课程讲义的 AI Skill。
+
+GitHub 仓库：
+https://github.com/Bright-han0516/group-lecture-skill
+
+请按以下步骤操作：
+1. 访问仓库并阅读 README.zh-CN.md、SKILL.md 和 docs/installation.md。不要只凭仓库名称推断功能。
+2. 检查当前操作系统、AI 工具及其权限，确认能否访问本地文件、执行命令和安装用户级 Skill。
+3. 如果兼容，按官方说明将 Skill 注册到当前 AI 工具的用户级 Skill 目录，使它在其他项目和新对话中也能被调用；不得擅自覆盖已有 Skill。
+4. 检查 Git、Python、PyMuPDF、XeLaTeX 和相关依赖。缺少依赖时说明如何修复；涉及管理员权限、大型软件下载或覆盖文件，先征得我的同意。
+5. 运行仓库的 bootstrap.sh、Demo PDF 构建和 QA。真实报告执行结果；不要把“注册成功”当作“PDF 环境验证通过”。
+6. 重新启动或打开新的 AI 会话，测试能否在其他项目识别 group-lecture-builder，并告诉我如何调用。
+7. 如果当前工具没有本地执行能力，请说明限制，改为提供可行的安装方案，不要声称已安装成功。
+
+请尽量替我完成可以安全执行的安装操作。我不熟悉终端，希望你优先自动操作，而不是仅返回命令。
+```
+
+**注意：** 该 Skill 当前以国际课程、理科类讲义工作流为主要设计和测试场景，其他学科可以尝试，但尚未经过系统验证。学科内容、练习形式和评分标准必须根据用户提供的对应考纲和真实题目调整，不能机械套用物理公式、计算题或 IB 的考试规范。最低素材仍为考纲与有授权的真题；教材与官方评分标准可提高质量。
+
+纯聊天型 AI 如果无法运行本地命令，可以帮助阅读、审稿和设计内容，但不能保证安装或编译 PDF。
+
 ## 一条命令安装成全局 Skill（Codex / Claude Code）
 
-公开仓库后，macOS / Linux / Windows WSL 可运行：
+macOS / Linux / Windows WSL 可运行（也可以让具备本地执行能力的 AI 代为运行）：
 
 ```bash
 git clone https://github.com/Bright-han0516/group-lecture-skill.git "$HOME/.local/share/group-lecture-builder" && bash "$HOME/.local/share/group-lecture-builder/install.sh" --hosts all
@@ -20,7 +44,7 @@ git clone https://github.com/Bright-han0516/group-lecture-skill.git "$HOME/.loca
 
 ## 旧版环境验证
 
-在终端执行（需要已登录 `gh`，并且账号有私有仓库权限）：
+旧版方式：使用 GitHub CLI（`gh`）克隆后验证运行环境；不负责全局 Skill 注册。
 
 ```bash
 gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
@@ -79,9 +103,7 @@ gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
 判断方法只有一条：让它跑 `./bootstrap.sh`。三条全过 → 能生产；第一条就挂 → 缺
 TeX；连命令都跑不了 → 只能评审。详见 [docs/hosts.md](docs/hosts.md)。
 
-> 私有仓库：Codex / Kimi Code 需要 GitHub 登录态或被加为 collaborator；
-> WorkBuddy / 豆包办公通常拿不到私有仓库，请给它 v0.2.0 Release 里的源码 ZIP，
-> 或让它只做评审。
+> 仓库目前公开，可直接访问；但能阅读 GitHub 页面并不等于能访问本地文件或运行 XeLaTeX。无法本地执行的 AI 只能参与内容规划与审稿。
 
 ## 开始前要准备的素材
 
