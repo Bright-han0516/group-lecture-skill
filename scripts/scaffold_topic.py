@@ -36,6 +36,7 @@ def main() -> int:
     ap.add_argument("--root", default=os.environ.get("GLB_ROOT", "."),
                     help="course 集团讲义 directory (default: $GLB_ROOT or cwd)")
     ap.add_argument("--force", action="store_true", help="overwrite an existing topic")
+    ap.add_argument("--board", choices=["IB", "CIE", "AQA", "EDEXCEL", "AP"], default="IB", help="exam board (default: IB for backwards compatibility)")
     ap.add_argument("code", help="topic code, e.g. A.3")
     ap.add_argument("name", help="short directory name, e.g. Energy")
     ap.add_argument("title", help="English title, e.g. Work, energy and power")
@@ -61,6 +62,9 @@ def main() -> int:
     copy_tree(TEMPLATE / "assets", tmpl_dir / "assets")
     if VENDOR_TEXMF.is_dir():
         copy_tree(VENDOR_TEXMF, tmpl_dir / "texmf")
+
+    topic.mkdir(parents=True, exist_ok=True)
+    (topic / ".glb-board").write_text(args.board + "\n", encoding="utf-8")
 
     src = topic / "src"
     assets = src / "assets"

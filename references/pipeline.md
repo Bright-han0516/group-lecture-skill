@@ -14,8 +14,10 @@ Placeholders used below:
 
 ## Phase 0 · Scaffold
 
+Resolve `{{SKILL_ROOT}}` as the directory containing the installed `SKILL.md`. `{{COURSE_ROOT}}` is a separate user-selected output directory and may be in any project. Read `references/boards.md` for valid `{{BOARD}}` values. Never assume a relative `scripts/` path resolves from the course directory.
+
 ```bash
-python3 scripts/scaffold_topic.py --root "{{COURSE_ROOT}}" {{CODE}} Energy "Work, energy and power"
+python3 "{{SKILL_ROOT}}/scripts/scaffold_topic.py" --board "{{BOARD}}" --root "{{COURSE_ROOT}}" {{CODE}} Energy "Work, energy and power"
 ```
 
 This creates `_模板/` (template, fonts, `texmf`, assets, helper scripts) and
@@ -79,7 +81,7 @@ Writing requirements:
 - Target: {{PAGES}} pages of body text. Prefer 20 solid pages over 30 padded ones.
 
 Build and self-check:
-cd {{DIR}}/src && ./build.sh
+cd "{{COURSE_ROOT}}/{{DIR}}/src" && ./build.sh
 grep -c "IfFileExists" {{STEM}}.tex      # must equal {{N}}
 python3 ../../_模板/check_topic.py ..     # must PASS
 Student edition must have zero Chinese characters.
@@ -183,6 +185,8 @@ avoid reusing a question already used by another topic.
    affected topic. Never patch one topic with `\renewcommand`.
 
 ## Phase 5 · Register (optional)
+
+Before registration and teacher handoff, complete the source-grounded academic review in `references/academic-qa.md` as `qa/academic_review.md`.
 
 A course may have its own product registry. If it does, add one row per PDF
 (student and key separately), using the same product ID and an audience/variant

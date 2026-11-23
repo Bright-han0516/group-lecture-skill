@@ -36,6 +36,22 @@ jobs:
           bash -n scripts/build_topic.sh
           bash -n bootstrap.sh
 
+      - name: Cross-project installer and board smoke test
+        run: |
+          bash -n install.sh
+          bash install.sh --hosts codex
+          test -L "$HOME/.agents/skills/group-lecture-builder"
+          test -f "$HOME/.agents/skills/group-lecture-builder/SKILL.md"
+          bash install.sh --hosts codex
+          tmp="$(mktemp -d)"
+          python scripts/scaffold_topic.py --board CIE --root "$tmp/another-project" 3.1 Motion "Kinematics"
+          test "$(cat "$tmp/another-project/31_Motion/.glb-board")" = "CIE"
+          (cd "$tmp/another-project/31_Motion/src" && ./build.sh)
+          test -f "$tmp/another-project/31_Motion/dist/CIE_31_Motion_GroupLecture_Student.pdf"
+          test -f "$tmp/another-project/31_Motion/dist/CIE_31_Motion_GroupLecture_Key.pdf"
+          python scripts/check_topic.py "$tmp/another-project/31_Motion"
+          rm -rf "$tmp"
+
       - name: Bootstrap (preflight + demo + QA)
         run: ./bootstrap.sh
 

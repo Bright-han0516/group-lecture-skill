@@ -11,21 +11,29 @@ LaTeX template. The model writes content; the template owns the visual design.
 This repository is self-contained: template, fonts, rsfs, placeholder assets,
 QA script and a runnable demo are included. Nothing is fetched at build time.
 
+## Cross-project installation
+
+For Codex or Claude Code user-level installation, see `docs/installation.md`. Install once, then invoke `group-lecture-builder` in any project. Always resolve tooling relative to the installed `SKILL.md` location; never assume the working directory is the skill repository.
+
 ## First run (do this before any topic)
 
 ```bash
-./bootstrap.sh
+cd "<SKILL_ROOT>" && ./bootstrap.sh
 ```
 
 It picks a Python with PyMuPDF, runs preflight, builds the demo (student + key) and
 runs the structural QA. It prints `READY` only if all three pass. If it fails, stop
 and report the FAIL lines; do not start writing a topic on a broken toolchain.
 
+## Exam-board selection
+
+Read `references/boards.md`. The supported `--board` values are `IB`, `CIE`, `AQA`, `EDEXCEL` and `AP`. Use the supplied syllabus version to determine level labels and question-citation fields; do not apply IB SL/HL or TZ requirements to other boards. `--board` controls output filenames but is not a substitute for verifying syllabus alignment.
+
 ## Materials gate (before writing)
 
 Read `MATERIALS.md` and ask the user for every missing item. At minimum: board and
-topic code, level and hours, syllabus path/section, textbook PDF + page offset,
-past-paper folder + allowed range, official mark-scheme folder, course root, and
+topic code, level and hours, syllabus path/section, textbook PDF + page offset (recommended, not required),
+past-paper folder + allowed range, official mark-scheme folder (recommended, not required), course root, and
 output constraints.
 
 **Do not start writing if the syllabus or the question corpus is missing.** Say what
@@ -34,7 +42,7 @@ is missing; never invent a paper, year, question number, page or mark.
 ## Inputs (ask only for what is missing)
 
 1. **Board + topic code**, e.g. `IB DP Physics A.3` or `CIE 9702 3.1`.
-2. **Level and teaching hours** (SL / HL / SL+HL; 4 h, 8 h, 14 h ...).
+2. **Level and teaching hours** (use the board-specific level convention from `references/boards.md`; 4 h, 8 h, 14 h ...).
 3. **Chapter map**: 3–5 chapters × 2–4 sections, grouped from the syllabus
    understandings. Show it to the user once before writing.
 4. **Course root**: the directory that will hold `_模板/` and `<Code>_<Name>/`.
@@ -49,7 +57,7 @@ The full checklist, including the textbook and mark-scheme paths, is in
 
 | Phase | Who | Output |
 |---|---|---|
-| 0 Scaffold | lead | `python3 scripts/scaffold_topic.py --root <course> A.3 Energy "Work, energy and power"` |
+| 0 Scaffold | lead | `python3 "<SKILL_ROOT>/scripts/scaffold_topic.py" --board IB --root <course> A.3 Energy "Work, energy and power"` |
 | 1 Chapter map | lead | 3–5 chapters × 2–4 sections, written into `qa/chapter_map.md`; one user confirmation |
 | 2 Body | body agent | `src/<Stem>.tex` + `src/assets/fig_*.png` + `MANIFEST.md` |
 | 3 Practice | practice agent, parallel | `src/<Stem>_p<N>.tex` + `src/assets/exam*/` + `qa/practice_mapping.md` |
@@ -66,6 +74,10 @@ Rules that prevent parallel work from drifting:
 - File ownership: body agent writes only `<Stem>.tex`, `fig_*`, `MANIFEST.md`;
   practice agent writes only `_p<N>.tex`, `exam*`, `practice_mapping.md`.
   Only the lead runs `build.sh`; parallel builds fight over `qa/build/`.
+
+## Academic QA
+
+Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
 
 ## Build and QA
 
@@ -154,6 +166,10 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
   prerequisites, correctness) before delivery.
 
 ## Read next
+
+- `docs/installation.md` — user-level cross-project installation and checks.
+- `references/boards.md` — board-specific nomenclature and source rules.
+- `references/academic-qa.md` — source-grounded physics content QA.
 
 - `references/pipeline.md` — full phase detail and the two agent prompts.
 - `references/layout-and-macros.md` — design tokens and every macro.
