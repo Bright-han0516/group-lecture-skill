@@ -1,3 +1,5 @@
+> **跨项目安装（v0.3 开发分支）**：适用于 Codex / Claude Code 的全局 Skill 注册，见 [安装说明](docs/installation.md)。当前主分支仍保留旧安装方式；新安装脚本合并前请勿将其当作正式发布版本。
+
 # 集团版讲义 Skill（中文说明）
 
 把「一个考局的一个主题」做成两本 PDF：**学生版**（留空、练习）和**答案版**（答案 +
@@ -6,7 +8,7 @@
 这个仓库是可直接分发的版本：模板、字体、`rsfs`、占位素材、QA 脚本和一个能跑的
 demo 都在里面；构建时不联网。
 
-## 一条命令开始
+## 一条命令开始（旧版环境验证；全局注册见 docs/installation.md）
 
 在终端执行（需要已登录 `gh`，并且账号有私有仓库权限）：
 
@@ -162,4 +164,4 @@ references/               流程、版式、选题、QA、坑
 - [docs/hosts.md](docs/hosts.md)（各宿主怎么用）
 - [PROMPT.md](PROMPT.md)（复制给 AI 的提示词）
 - [MATERIALS.md](MATERIALS.md)（素材清单）
-- [v0.1.1 Release](https://github.com/Bright-han0516/group-lecture-skill/releases/tag/v0.2.0)
+- [v0.2.0 Release](https://github.com/Bright-han0516/group-lecture-skill/releases/tag/v0.2.0)
