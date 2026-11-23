@@ -1,6 +1,6 @@
 # group-lecture-skill
 
-> Global Skill installation for Codex / Claude Code: [docs/installation.md](docs/installation.md). The installer registers the skill in the user's skill directory, so it works in other projects. Current installation is a development preview until this PR is merged.
+> **Start here:** [中文快速使用指南](README.zh-CN.md) · [Global installation guide](docs/installation.md). The installer registers this skill in the user-level directory for Codex or Claude Code; actual PDF production also requires XeLaTeX and Python dependencies.
 
 [中文说明](README.zh-CN.md)
 
@@ -13,7 +13,13 @@ template, the fonts, the `rsfs` fonts needed by `mathptmx`, placeholder assets, 
 scripts and a runnable demo. It does **not** include past papers, textbook figures,
 mark schemes or any school/publisher branding.
 
-## 30-second check
+## Recommended onboarding
+
+For nontechnical teachers, copy the installation prompt in the [Chinese quick-start guide](README.zh-CN.md#1-一段话让-ai-协助安装推荐) into a coding agent with local shell and filesystem access. A plain chat assistant cannot install a local skill or build PDFs. This workflow has primarily been designed/tested for physics and adjacent science materials; other subjects are experimental and must adapt content and question requirements to their own syllabus.
+
+Minimum source materials are a syllabus and authorised past questions. Textbooks and official mark schemes are recommended but optional; do not claim mark-scheme verification without the actual MS.
+
+## 30-second environment check (not global installation)
 
 Requirements: XeLaTeX (TeX Live / TinyTeX), Python 3.9+, PyMuPDF. Poppler is optional.
 `bootstrap.sh` picks a Python that actually has PyMuPDF; on macOS this is often
@@ -91,9 +97,7 @@ gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-bui
 cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
 ```
 
-Codex, Cursor and Kimi Code do not need a skill directory: clone anywhere and let
-them read `AGENTS.md` (or `CLAUDE.md`). The directory name only matters to hosts that
-scan a skills folder.
+For **cross-project** invocation in Codex, install into the user-level skill directory as described in [docs/installation.md](docs/installation.md); simply cloning into an unrelated directory is not equivalent to global registration. Other hosts must be checked individually.
 
 Then give the agent this bootstrap prompt:
 
@@ -108,7 +112,7 @@ Only then start my topic. Do not skip these steps.
 
 | Dependency | Why | Install |
 |---|---|---|
-| GitHub CLI (`gh`) | Clone the private repo and run the one-command setup | <https://cli.github.com> |
+| GitHub CLI (`gh`) | Optional for the legacy clone workflow; the public repository can also be cloned with `git` | <https://cli.github.com> |
 | XeLaTeX + TeX Live | Build the PDFs | `tlmgr` / TinyTeX; full TeX Live recommended |
 | `fontspec`, `xeCJK`, `tcolorbox`, `tikz`, `tabularx`, `needspace`, `lastpage`, `hyperref` | Template | `tlmgr install ...` |
 | Python 3.9+ and PyMuPDF | Cropping, QA | `pip install -r requirements.txt`; verify with `python3 -c "import fitz"` |
