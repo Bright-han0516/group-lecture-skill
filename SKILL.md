@@ -15,12 +15,13 @@ QA script and a runnable demo are included. Nothing is fetched at build time.
 
 ```bash
 python3 scripts/preflight.py          # must exit 0
-cd examples/demo && ./build.sh        # must produce two PDFs
+(cd examples/demo && ./build.sh)      # must produce two PDFs
 python3 scripts/check_topic.py examples/demo/Demo_Topic   # must PASS
 ```
 
-If preflight fails, stop and report what is missing. Do not start writing a topic
-on a broken toolchain.
+Use the Python interpreter where `python3 -c "import fitz"` succeeds (on macOS this
+is often `/usr/bin/python3`). If preflight fails, stop and report what is missing.
+Do not start writing a topic on a broken toolchain.
 
 ## Inputs (ask only for what is missing)
 
