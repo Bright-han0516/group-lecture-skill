@@ -1,0 +1,32 @@
+# Academic QA — required before teacher handoff
+
+The automatic PDF check (`scripts/check_topic.py`) covers technical integrity only. Academic QA is a separate source-evidence review by the agent and must be shown to the teacher. No automated PASS proves pedagogical suitability or factual accuracy.
+
+## Source-evidence table
+
+Create `qa/academic_review.md` with:
+
+| Syllabus objective (exact version + ID) | Handout section/page | Question/source file + part | Status | Evidence / gap |
+|---|---|---|---|---|
+
+Allowed statuses: `verified`, `needs teacher check`, `missing`, `not applicable`.
+Every in-scope syllabus objective needs a row. Missing objectives cannot be marked verified.
+
+## Mandatory academic checks
+
+1. **Syllabus fidelity:** correct board, specification, assessment year, level, and any SL/HL or AS/A2 distinctions; note every missing/out-of-scope point.
+2. **Physics and mathematics:** sign convention, equations and assumptions, units, significant figures, graph interpretation; independently recalculate worked examples and numeric answers.
+3. **Question provenance:** verify file, paper identity, year/session/variant, question number/part and marks against the actual page; flag cropped or unreadable questions.
+4. **Answer validity:** ensure every exercise has an answer. When an official MS is provided, map every relevant point to the MS. When it isn't, state `NOT MS VERIFIED`; never claim official mark-scheme agreement.
+5. **Traceability:** no invented citation, textbook page, image source or exam-reference metadata. Author-written questions must be explicitly marked.
+6. **Quality report:** output a table with `issue | severity | source evidence | smallest fix | status`; block delivery for wrong formulas, incorrect source attribution, missing required objectives or unresolved missing answers.
+
+## Acceptance
+
+- Technical build and PDF checks passed.
+- Every syllabus objective has a mapped section or an explicitly recorded gap.
+- Every exercise is checked for provenance and answer existence.
+- Every quantitative result is recalculated; mark-scheme verification only claimed when MS exists.
+- Deliver the teacher both PDFs and `qa/academic_review.md`.
+
+**The teacher** remains responsible for final content approval, classroom usability, choice of pedagogy and visual inspection. Do not output a fictional PASS when source files were inaccessible.
