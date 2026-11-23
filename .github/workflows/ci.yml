@@ -1,0 +1,54 @@
+name: demo
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install TeX Live and poppler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            texlive-xetex texlive-latex-extra texlive-lang-chinese \
+            texlive-fonts-recommended lmodern poppler-utils
+          python -m pip install --upgrade pip
+          python -m pip install pymupdf
+
+      - name: Preflight
+        run: python scripts/preflight.py
+
+      - name: Check template copies are in sync
+        run: |
+          diff template/jt_lecture.tex examples/demo/_模板/jt_lecture.tex
+          diff template/jt_topic.tex examples/demo/_模板/jt_topic.tex
+
+      - name: Compile scripts
+        run: |
+          python -m py_compile scripts/*.py
+          bash -n scripts/build_topic.sh
+
+      - name: Build demo
+        working-directory: examples/demo
+        run: ./build.sh
+
+      - name: QA demo
+        run: python scripts/check_topic.py examples/demo/Demo_Topic
+
+      - name: Upload demo PDFs
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-pdfs
+          path: |
+            examples/demo/Demo_Topic/dist/*.pdf
+            examples/demo/Demo_Topic/qa/build/*.log

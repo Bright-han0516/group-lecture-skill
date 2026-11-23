@@ -1,0 +1,140 @@
+% Demo topic for the group-lecture-skill repo.
+% Build:  cd examples/demo/Demo_Topic/src && ./build.sh
+% or:     cd examples/demo && ./build.sh
+\documentclass[11pt,a4paper]{article}
+\input{../../_模板/jt_lecture.tex}
+\jtlogo{../../_模板/assets/logo.png}
+\graphicspath{{assets/}{../../_模板/assets/}}
+\hypersetup{pdftitle={Physics D.1 Motion: a demo topic},pdfauthor={Group Lecture Builder}}
+
+\begin{document}
+\thispagestyle{empty}
+\jtcover{D.1}{MOTION: A DEMO TOPIC}{header_demo.jpg}
+
+% ============================================================ 1
+\jtchapter{1}{Describing motion}
+
+\jtsub{1.1}{Speed and velocity}
+
+A body moves along a straight line. Its position is measured from a fixed origin,
+and its displacement is the change in position. Speed and velocity are related but
+not identical: speed is a scalar, velocity is a vector.
+
+\begin{jttab}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.8cm}|}
+\hline
+\rowcolor{jtpink}\jtrowhead{quantity} & \jtheadc{meaning} & \jtheadc{unit}\\\hline
+speed & distance travelled per unit time & \blank[1.4cm]{m s$^{-1}$}\\\hline
+velocity & displacement per unit time & \blank[1.4cm]{m s$^{-1}$}\\\hline
+acceleration & rate of change of velocity & \blank[1.4cm]{m s$^{-2}$}\\\hline
+\end{jttab}
+
+\eqd{v = \frac{\Delta s}{\Delta t}}
+\key{Average velocity uses displacement; average speed uses distance.}
+
+\jtfig[0.72]{fig_demo_vt.png}{Original figure for this demo: velocity against time for uniform acceleration.}
+
+\jtexample{Worked example 1.1 \quad average speed}
+A runner covers 100 m in 20 s. Calculate the average speed.
+\begin{itemize}
+  \item distance: \blank[1.4cm]{100 m}
+  \item time: \blank[1.4cm]{20 s}
+  \item average speed: \blank[2.4cm]{5.0 m s$^{-1}$}
+\end{itemize}
+
+\begin{jtexamfocus}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item Read values from the axes before substituting into an equation.
+  \item Give the unit and an appropriate number of significant figures.
+\end{itemize}
+\end{jtexamfocus}
+
+\begin{jtmisconception}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item Using distance instead of displacement for velocity.
+  \item Forgetting that a change of direction changes the velocity.
+\end{itemize}
+\end{jtmisconception}
+
+\IfFileExists{Demo_p1.tex}{\input{Demo_p1.tex}}{}
+
+% ============================================================ 2
+\jtchapter{2}{Accelerating systems}
+
+\jtsub{2.1}{Uniform acceleration}
+
+For constant acceleration, the three equations of motion connect initial velocity
+$u$, final velocity $v$, acceleration $a$, displacement $s$ and time $t$.
+
+\eqd{v = u + at}
+\eqd{s = ut + \frac{1}{2}at^2}
+\eqd{v^2 = u^2 + 2as}
+
+\begin{jttab}{|>{\centering\arraybackslash}p{2.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.6cm}|}
+\hline
+\rowcolor{jtpink}\jtrowhead{symbol} & \jtheadc{quantity} & \jtheadc{unit}\\\hline
+$u$ & initial velocity & \blank[1.3cm]{m s$^{-1}$}\\\hline
+$v$ & final velocity & \blank[1.3cm]{m s$^{-1}$}\\\hline
+$a$ & acceleration & \blank[1.3cm]{m s$^{-2}$}\\\hline
+\end{jttab}
+
+\jtexample{Worked example 2.1 \quad uniform acceleration}
+A car accelerates from rest at $3.0\ \mathrm{m\,s^{-2}}$ for 4.0 s.
+\begin{itemize}
+  \item final velocity: \blank[2.6cm]{12 m s$^{-1}$}
+  \item displacement: \blank[2.6cm]{24 m}
+\end{itemize}
+
+\begin{jtexamfocus}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item List the known quantities before choosing an equation.
+  \item Keep signs consistent when the motion reverses.
+\end{itemize}
+\end{jtexamfocus}
+
+\begin{jtmisconception}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item Using $v = u + at$ when acceleration is not constant.
+  \item Mixing up $s$ (displacement) with total distance travelled.
+\end{itemize}
+\end{jtmisconception}
+
+\IfFileExists{Demo_p2.tex}{\input{Demo_p2.tex}}{}
+
+% ============================================================ 3
+\jtchapter{3}{Free fall}
+
+\jtsub{3.1}{Motion under gravity}
+
+Near the Earth's surface, a freely falling body has a constant downward
+acceleration $g = 9.81\ \mathrm{m\,s^{-2}}$ if air resistance is ignored.
+
+\eqd{s = \frac{1}{2}gt^2}
+\key{Free fall means gravity is the only force acting.}
+
+\jtexample{Worked example 3.1 \quad time of fall}
+A ball is dropped from rest and falls 20 m. Calculate the time of fall.
+\begin{itemize}
+  \item rearrange: \blank[3.2cm]{$t = \sqrt{2s/g}$}
+  \item substitute: \blank[3.2cm]{$t = 2.0$ s}
+\end{itemize}
+
+\begin{jtexamfocus}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item State the direction of motion before assigning signs.
+  \item Use $g = 9.81\ \mathrm{m\,s^{-2}}$ unless the question says otherwise.
+\end{itemize}
+\end{jtexamfocus}
+
+\begin{jtmisconception}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item Treating $g$ as a force rather than an acceleration.
+  \item Assuming a falling object is weightless.
+\end{itemize}
+\end{jtmisconception}
+
+\IfFileExists{Demo_p3.tex}{\input{Demo_p3.tex}}{}
+
+\jtcolophon{Source notes: this is an original demo written for the repository.
+No past-paper, textbook or markscheme content is included.}
+
+\end{document}

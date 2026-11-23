@@ -1,0 +1,31 @@
+Third-party notices
+
+1. TeX Gyre fonts
+   Files: template/fonts/texgyretermes-*.otf, texgyreheros-*.otf,
+          texgyreheroscn-*.otf
+   License: GUST Font License (GFL). See
+            template/fonts/GUST-FONT-LICENSE.txt.
+   Source: GUST / CTAN tex-gyre package.
+
+2. rsfs (Ralph Smith's Formal Script fonts)
+   Files: vendor/texmf/fonts/{tfm,type1,afm}/public/rsfs/*
+   Author: Ralph Smith, University of California, San Diego.
+   The original README says: "You are welcome to use and distribute these files;
+   if you modify them, please change the name but give credit to the original
+   author." The fonts are included unmodified for use by mathptmx under XeLaTeX.
+   Source: CTAN rsfs package. See vendor/texmf/README.md.
+
+3. PyMuPDF
+   Not bundled. The scripts import it if installed. PyMuPDF is dual-licensed under
+   the GNU Affero General Public License v3 and a commercial license. Users are
+   responsible for complying with that license.
+
+4. Poppler
+   Not bundled. `pdftoppm`, `pdffonts` and `pdfinfo` are optional external tools;
+   Poppler is distributed under the GNU General Public License.
+
+5. No affiliation
+   This template is an independent recreation of a common group-handout style.
+   It is not affiliated with, endorsed by, or licensed from Cambridge International
+   (CIE), the International Baccalaureate (IB), Hodder Education, or any other
+   publisher. No past papers, textbook figures or mark schemes are included.

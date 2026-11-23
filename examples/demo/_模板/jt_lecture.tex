@@ -1,0 +1,392 @@
+% =============================================================================
+% jt_lecture.tex — group-style lecture template (topic handout, EN body + CN key)
+% =============================================================================
+% Use: student edition (blanks) and answer key (answers + Chinese solutions).
+% Build mode: pass \def\JTKEY{} to produce the answer key.
+%   xelatex -jobname=Demo_key "\def\JTKEY{}\input{Demo.tex}"
+%
+% Fonts: the repo ships TeX Gyre Termes / Heros / Heros Condensed (GUST license).
+% build_topic.sh puts template/fonts on OPENTYPEFONTS, so the names below resolve
+% on macOS, Linux and Windows alike. If the files are absent, the template falls
+% back to host fonts, then to Latin Modern, so it still compiles.
+%
+% Chinese: Songti SC (macOS) -> Fandol Song (TeX Live). The key needs a CJK
+% font; the student edition is English-only.
+%
+% Layout tokens and macros are documented in references/layout-and-macros.md.
+% =============================================================================
+
+\newif\ifkey
+\ifdefined\JTKEY \keytrue \fi
+
+% ---------------------------------------------------------------- fonts
+\usepackage{mathptmx}                     % Times-style math; load before fontspec
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{etoolbox}
+\providecommand{\JTFONTDIR}{fonts}
+
+% Text: TeX Gyre Termes (metric-compatible with Times) if available.
+\IfFileExists{\JTFONTDIR/texgyretermes-regular.otf}{%
+  \setmainfont{texgyretermes-regular.otf}[Path=\JTFONTDIR/,Ligatures=TeX,
+    BoldFont=texgyretermes-bold.otf,
+    ItalicFont=texgyretermes-italic.otf,
+    BoldItalicFont=texgyretermes-bolditalic.otf]%
+}{%
+  \IfFontExistsTF{Times}{\setmainfont{Times}[Ligatures=TeX]}%
+    {\setmainfont{Latin Modern Roman}}%
+}
+
+% Sans: TeX Gyre Heros (Helvetica clone).
+\IfFileExists{\JTFONTDIR/texgyreheros-regular.otf}{%
+  \setsansfont{texgyreheros-regular.otf}[Path=\JTFONTDIR/,Ligatures=TeX,
+    BoldFont=texgyreheros-bold.otf,
+    ItalicFont=texgyreheros-italic.otf,
+    BoldItalicFont=texgyreheros-bolditalic.otf]%
+}{%
+  \IfFontExistsTF{Helvetica Neue}{%
+    \setsansfont{Helvetica Neue}[Ligatures=TeX,
+      BoldFont={Helvetica Neue Bold},ItalicFont={Helvetica Neue Italic},
+      BoldItalicFont={Helvetica Neue Bold Italic}]%
+  }{\setsansfont{Latin Modern Sans}}%
+}
+
+% Condensed sans for cover titles: TeX Gyre Heros Condensed.
+\IfFileExists{\JTFONTDIR/texgyreheroscn-regular.otf}{%
+  \newfontfamily\condensed{texgyreheroscn-regular.otf}[Path=\JTFONTDIR/,
+    BoldFont=texgyreheroscn-bold.otf,
+    ItalicFont=texgyreheroscn-italic.otf,
+    BoldItalicFont=texgyreheroscn-bolditalic.otf]%
+}{%
+  \IfFontExistsTF{Arial Narrow}{%
+    \newfontfamily\condensed{Arial Narrow}[BoldFont={Arial Narrow Bold},
+      ItalicFont={Arial Narrow Italic},BoldItalicFont={Arial Narrow Bold Italic}]%
+  }{\newfontfamily\condensed{Latin Modern Sans}}%
+}
+
+% Chinese: Songti SC on macOS, Fandol on TeX Live.
+\IfFontExistsTF{Songti SC}{%
+  \setCJKmainfont{Songti SC}[BoldFont={Songti SC Bold},ItalicFont={Songti SC}]%
+  \setCJKsansfont{Songti SC}[BoldFont={Songti SC Bold},ItalicFont={Songti SC}]%
+}{%
+  \IfFontExistsTF{FandolSong-Regular.otf}{%
+    \setCJKmainfont{FandolSong-Regular.otf}[BoldFont=FandolSong-Bold.otf,
+      ItalicFont=FandolSong-Regular.otf]%
+    \setCJKsansfont{FandolSong-Regular.otf}[BoldFont=FandolSong-Bold.otf,
+      ItalicFont=FandolSong-Regular.otf]%
+  }{%
+    \setCJKmainfont{FandolSong}%
+    \setCJKsansfont{FandolSong}%
+  }%
+}
+
+% ---------------------------------------------------------------- 版面
+\usepackage[a4paper,top=2.64cm,bottom=2.35cm,left=2.24cm,right=2.1cm,
+            headheight=15pt,headsep=0.32cm,footskip=0.95cm]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{array,tabularx,multirow,longtable}
+\usepackage{colortbl,xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning,shapes.geometric,patterns}
+\usepackage{fancyhdr}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks,bookmarksopen=true]{hyperref}
+\usepackage{lastpage}
+
+% ---------------------------------------------------------------- 配色（取色自集团原件）
+\definecolor{jtdark}{HTML}{7C2C2E}   % 封面题号块
+\definecolor{jtred}{HTML}{95383C}    % 标题/边框/图标
+\definecolor{jtpink}{HTML}{B87D72}   % 表头
+\definecolor{jtpale}{HTML}{F7E1DC}   % 封面粉色横幅
+\definecolor{jtbarL}{HTML}{8E4E45}   % 章节条渐变左
+\definecolor{jtbarR}{HTML}{CFB2AA}   % 章节条渐变右
+\definecolor{jtink}{HTML}{231F20}    % 正文墨色
+\definecolor{jtnode}{HTML}{8C8C8C}   % 图注灰
+\color{jtink}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4.2pt}
+\renewcommand{\arraystretch}{1.28}
+\setlength{\tabcolsep}{6pt}
+\arrayrulecolor{jtred}
+\setlength{\arrayrulewidth}{0.5pt}
+\raggedbottom
+\setlength{\emergencystretch}{2em}
+
+% 页面资源目录（由各主题文档设置 \jtassets{...}）
+\newcommand{\jtassets}[1]{\graphicspath{{#1}}}
+\newcommand{\jtlogopath}{}
+
+% ---------------------------------------------------------------- header logo (odd/even)
+\newcommand{\jtlogo}[1]{\renewcommand{\jtlogopath}{#1}}
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyhead[LE,RO]{%
+  \ifdefempty{\jtlogopath}{}{%
+    \raisebox{-0.10cm}[0pt][0pt]{\includegraphics[height=0.50cm]{\jtlogopath}}}}
+\fancyfoot[C]{\ifkey{\sffamily\fontsize{7.5}{9}\selectfont\color{jtnode}\thepage\,/\,\pageref{LastPage}}\fi}
+
+% ---------------------------------------------------------------- cover
+% \jtcover{<code A.1>}{<EN TITLE>}{<header file in src/assets>}
+\newcommand{\jtcover}[3]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    % header image: full width, 0.49cm from top, 7.11cm high
+    \node[anchor=north west,inner sep=0pt,yshift=-0.49cm] at (current page.north west)
+      {\IfFileExists{assets/#3}%
+        {\includegraphics[width=\paperwidth,height=7.11cm]{assets/#3}}%
+        {\PackageWarning{jtlecture}{Cover image assets/#3 not found; using placeholder}%
+         \color{jtpale}\rule{\paperwidth}{7.11cm}}};
+    % 题号块（深红）
+    \fill[jtdark] ([yshift=-7.90cm]current page.north west) rectangle
+                  ([xshift=2.57cm,yshift=-9.21cm]current page.north west);
+    \node[anchor=west,text=white,font=\sffamily\fontsize{19}{21}\selectfont]
+      at ([xshift=0.42cm,yshift=-8.55cm]current page.north west) {#1};
+    % 插座装饰（两个白色小圆 + 灰色连接线）
+    \foreach \dy in {-0.34cm,-1.02cm}{
+      \fill[white] ([xshift=2.62cm,yshift={\dy-8.21cm}]current page.north west) circle (0.075cm);
+      \draw[jtnode,line width=0.35pt]
+        ([xshift=2.70cm,yshift={\dy-8.21cm}]current page.north west) --
+        ([xshift=3.02cm,yshift={\dy-8.21cm}]current page.north west);}
+    % 粉色横幅
+    \fill[jtpale] ([xshift=3.02cm,yshift=-7.90cm]current page.north west) rectangle
+                  ([yshift=-9.21cm]current page.north east);
+    \node[anchor=west,text=jtink,font=\condensed\bfseries\fontsize{19}{21}\selectfont,
+          text width=13.2cm]
+      at ([xshift=3.85cm,yshift=-8.55cm]current page.north west) {#2};
+  \end{tikzpicture}%
+  % 正文从封面下方开始（对应原件 y=274.6pt）
+  \par\vspace*{7.03cm}%
+  {\color{jtred}\bfseries\fontsize{13.5}{16}\selectfont
+   \raisebox{-0.11cm}{\tikz[baseline=0pt]{
+      \fill[jtred] (0,0) rectangle (0.30,0.56);
+      \fill[jtred] (0,0.80) -- (0,0.56) -- (0.30,0.56) -- (0.30,0.80) -- cycle;
+      \fill[white] (0,0.80) -- (0,0.34) -- (0.15,0.22) -- (0.30,0.34) -- (0.30,0.80) -- cycle;
+      \begin{scope}[shift={(0.15,0.475)}]
+        \fill[jtred] (0,0.085) -- (0.033,0.026) -- (0.100,0.026) -- (0.045,-0.019)
+                     -- (0.066,-0.085) -- (0,-0.047) -- (-0.066,-0.085) -- (-0.045,-0.019)
+                     -- (-0.100,0.026) -- (-0.033,0.026) -- cycle;
+      \end{scope}}}
+   \hspace{0.16cm}Content}%
+  \par\vspace{2.2pt}{\color{jtred}\rule{\linewidth}{0.55pt}}\par\vspace{9pt}%
+}
+
+% ---------------------------------------------------------------- 章节条
+% \jtchapter{<编号>}{<标题>}
+\newcommand{\jtchapter}[2]{%
+  \par\vspace{0.30cm}%
+  \pdfbookmark[1]{#1 #2}{jt-ch-#1}%
+  \noindent\begin{tikzpicture}[x=1pt,y=1pt]
+    \pgfmathsetmacro{\W}{\linewidth/1pt}
+    \shade[left color=jtbarL,right color=jtbarR,rounded corners=9pt]
+      (0,0) rectangle (\W,21.5);
+    % 右侧白色三角缺口 + 灯泡
+    \fill[white] (\W-34,21.5) -- (\W-17.5,0) -- (\W-1,21.5) -- cycle;
+    \begin{scope}[shift={(\W-17.5,10.0)}]
+      \draw[jtred,line width=0.7pt,line cap=round] (0,3.6) circle (2.55);
+      \draw[jtred,line width=0.6pt,line cap=round] (-1.0,0.55) -- (1.0,0.55) (0,0.55) -- (0,-1.35);
+      \draw[jtred,line width=0.7pt,line cap=round]
+        (0,7.4)--(0,8.9) (-4.0,6.4)--(-4.9,7.4) (4.0,6.4)--(4.9,7.4)
+        (-5.3,3.6)--(-6.5,3.6) (5.3,3.6)--(6.5,3.6);
+    \end{scope}
+    % 右侧点阵
+    \foreach \i in {0,...,7}{\foreach \j in {0,1,2}{
+      \fill[white,opacity=0.55] (\W-2.6-4.6*\i,3.0+5.6*\j) circle (0.55);}}
+    % 题号与斜杠
+    \node[anchor=west,text=white,font=\sffamily\fontsize{13}{14}\selectfont]
+      at (8,10.8) {#1};
+    \fill[white,opacity=0.85] (20.5,2.4) -- (23.0,19.1) -- (24.6,19.1) -- (22.1,2.4) -- cycle;
+    % 标题
+    \node[anchor=west,text=white,font=\sffamily\bfseries\fontsize{12.5}{14}\selectfont]
+      at (28,10.8) {#2};
+  \end{tikzpicture}%
+  \par\vspace{0.30cm}%
+}
+% 不编号的章节条（练习区、公式汇总等）
+\newcommand{\jtbanner}[1]{\jtchapter{}{#1}}
+
+% ---------------------------------------------------------------- 二级标题
+% \jtsub{<编号>}{<标题>}
+\newcommand{\jtsub}[2]{%
+  \par\Needspace{3.2cm}\vspace{0.10cm}%
+  \phantomsection\pdfbookmark[2]{#1 #2}{jt-sub-#1}%
+  {\color{jtred}\bfseries\fontsize{11.5}{14}\selectfont #1\enspace #2\par}\nobreak
+  \vspace{0.10cm}%
+}
+% 三级标题（无编号）
+\newcommand{\jtsubsub}[1]{%
+  \par\Needspace{1.2cm}\vspace{0.06cm}%
+  {\color{jtred}\bfseries\fontsize{10.5}{12.5}\selectfont #1\par}\vspace{0.02cm}%
+}
+
+% ---------------------------------------------------------------- 表格
+% 表头：粉底白字，行高约 36pt
+\newcommand{\jthead}[1]{{\color{white}\rule[-9.6pt]{0pt}{24pt}#1}}
+% 定义表等：\begin{jttab}{列格式}\rowcolor{jtpink}\jthead{..} & ... \\ ...
+\newenvironment{jttab}[1]
+  {\par\noindent\fontsize{10}{12.8}\selectfont\renewcommand{\arraystretch}{1.5}%
+   \tabularx{\linewidth}{#1}}
+  {\endtabularx\par}
+\newcommand{\jtheadc}[1]{\multicolumn{1}{c}{\jthead{#1}}}
+% 单行表头环境：自动铺粉底
+\newenvironment{jtgrid}[1]
+  {\par\noindent\fontsize{10}{12.8}\selectfont\tabularx{\linewidth}{#1}}
+  {\endtabularx\par}
+% 无框说明行
+\newcommand{\jtrowhead}[1]{\rowcolor{jtpink}#1}
+
+% ---------------------------------------------------------------- 填空
+% \blank[宽度]{答案}：学生版画横线，答案版显示深红答案
+\newcommand{\blank}[2][2.1cm]{%
+  \ifkey{\textcolor{jtred}{\bfseries #2}}%
+  \else{\color{jtink!65}\rule[-0.16em]{#1}{0.5pt}}\fi}
+% 表内填空（同）
+\newcommand{\cblank}[2][2.1cm]{\blank[#1]{#2}}
+% 纯作答横线（结构化题留白）
+\newcommand{\scribble}[1][4]{%
+  \par\vspace{0.10cm}%
+  \foreach \i in {1,...,#1}{\noindent{\color{jtred!22}\rule{\linewidth}{0.4pt}}\par\vspace{0.38cm}}%
+}
+
+% ---------------------------------------------------------------- 图
+% \jtfig[宽度比例]{文件}{图注}  （文件缺失时画占位框，便于先写文字后补图）
+\newcommand{\jtfig}[3][0.86]{%
+  \par\vspace{0.10cm}\begin{center}%
+  \IfFileExists{assets/#2}{\includegraphics[width=#1\linewidth]{assets/#2}}%
+   {\fbox{\parbox[c][3.2cm][c]{0.6\linewidth}{\centering\color{jtnode}\small [missing figure]}}}\\[2pt]%
+  {\color{jtnode}\fontsize{8}{9.5}\selectfont #3}\end{center}\vspace{0.06cm}%
+}
+% generic image with a missing-file placeholder (path relative to src/assets)
+\newcommand{\jtimg}[2][0.96\linewidth]{%
+  \IfFileExists{assets/#2}{\includegraphics[width=#1]{assets/#2}}%
+  {\fbox{\parbox[c][2.4cm][c]{0.7\linewidth}{\centering\color{jtnode}\small [missing image]}}}}
+% 并列双图
+\newcommand{\jtfigtwo}[5][0.47]{%
+  \par\vspace{0.10cm}\noindent
+  \begin{minipage}[c]{#1\linewidth}\centering
+    \jtimg[\linewidth]{#2}\\[2pt]{\color{jtnode}\fontsize{8}{9.5}\selectfont #3}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{#1\linewidth}\centering
+    \jtimg[\linewidth]{#4}\\[2pt]{\color{jtnode}\fontsize{8}{9.5}\selectfont #5}
+  \end{minipage}\par\vspace{0.06cm}%
+}
+
+% ---------------------------------------------------------------- 例题 / 练习
+% 例题块标题（深红小标）
+\newcommand{\jtexample}[1]{%
+  \par\vspace{0.12cm}{\color{jtred}\bfseries\fontsize{10.5}{12.5}\selectfont #1\par}\vspace{0.02cm}%
+}
+% 真题：\jtquestion{<序号>}{<来源>}{<分值>}{<图片文件>}
+\newcommand{\jtquestion}[4]{%
+  \par\needspace{3cm}\vspace{0.16cm}%
+  {\color{jtred}\sffamily\bfseries\fontsize{9}{11}\selectfont Q#1}\enspace
+  {\color{jtnode}\sffamily\fontsize{8}{10}\selectfont #2\quad[#3]\par}\nobreak
+  \vspace{0.06cm}\noindent\jtimg[0.96\linewidth]{#4}\par
+}
+% 多选题作答留白（学生版）
+\newcommand{\jtmcqspace}{%
+  \ifkey\else\par\vspace{0.10cm}\noindent
+  {\color{jtred!55}\fontsize{9}{11}\selectfont Answer:\enspace\rule[-0.12em]{2.0cm}{0.45pt}}\par\fi}
+% 答案（仅答案版）：\jtanswer{<内容>}
+\newcommand{\jtanswer}[1]{%
+  \ifkey\par\vspace{0.10cm}{\color{jtred}\bfseries\fontsize{9.5}{12}\selectfont Answer}\enspace
+  {\bfseries #1}\par\fi}
+% 解析（仅答案版）：\jtsolution{<中文>}
+\newcommand{\jtsolution}[1]{%
+  \ifkey\par\vspace{0.10cm}{\color{jtred}\bfseries\fontsize{9.5}{12}\selectfont Solution}\par
+  \nobreak\vspace{0.02cm}{\fontsize{9.5}{13.6}\selectfont #1\par}\fi}
+% 结构化题逐小问解析表（仅答案版）：\begin{jtsoltab} \jtsolrow{7(a)}{...} \end{jtsoltab}
+% 结构化题逐小问解析（仅答案版）：\jtsolpart{7(a)}{中文解析}
+\newcommand{\jtsolpart}[2]{%
+  \ifkey\par\vspace{3pt}\noindent
+  \begin{minipage}[t]{1.45cm}\centering{\sffamily\bfseries\fontsize{9}{11}\selectfont #1}\end{minipage}%
+  \hspace{4pt}%
+  \begin{minipage}[t]{\dimexpr\linewidth-1.75cm\relax}
+    {\fontsize{9.5}{13.6}\selectfont #2}\end{minipage}\par\vspace{2pt}%
+  {\color{jtpink!55}\rule{\linewidth}{0.4pt}}\par\fi}
+
+% ---------------------------------------------------------------- 公式框（深红细框，集团式低调）
+\newtcolorbox{jtkeybox}[1]{
+  breakable,enhanced,sharp corners,boxrule=0.5pt,colframe=jtred!45,colback=jtpale!45,
+  left=6pt,right=6pt,top=4pt,bottom=5pt,
+  before skip=4pt,after skip=5pt,
+  fonttitle=\sffamily\bfseries\fontsize{8.5}{10}\selectfont,coltitle=jtred,
+  title={#1},attach title to upper={\par\vspace{2pt}},
+  before upper={\fontsize{10}{12.6}\selectfont}}
+
+
+% ---------------------------------------------------------------- 列表 / 公式
+\renewcommand{\labelitemi}{\textcolor{jtred}{\small\textbullet}}
+\renewcommand{\labelitemii}{\textcolor{jtred}{\scriptsize\textbullet}}
+\setlist[itemize]{leftmargin=1.35em,itemsep=1.5pt,topsep=2pt,parsep=0pt}
+\setlist[enumerate]{leftmargin=1.5em,itemsep=1.5pt,topsep=2pt,parsep=0pt}
+\newcommand{\eqd}[1]{\par\vspace{1pt}\begin{equation*}#1\end{equation*}\vspace{-2pt}}
+% 关键句（深红加粗，用于“记住这条”类结论）
+\newcommand{\key}[1]{{\color{jtred}\bfseries #1}}
+
+
+% ---------------------------------------------------------------- 真题考点说明
+% \jtexamtip{常见考法：...}  小字浅墨说明，位于考点小标题下
+\newcommand{\jtexamtip}[1]{%
+  \par\vspace{1pt}\nobreak{\color{jtnode}\fontsize{8.6}{11.5}\selectfont #1\par}\vspace{2pt}%
+}
+
+
+% ---------------------------------------------------------------- 考点提示与常见误区
+\newtcolorbox{jtexamfocus}{
+  enhanced,sharp corners,boxrule=0.5pt,colframe=jtred!32,colback=jtpale!55,
+  left=7pt,right=7pt,top=3pt,bottom=5pt,before skip=6pt,after skip=6pt,
+  coltitle=jtred,fonttitle=\sffamily\bfseries\fontsize{7.8}{9}\selectfont,
+  title={EXAM FOCUS},attach title to upper={\par\vspace{2pt}},
+  fontupper=\fontsize{9.4}{12.4}\selectfont}
+\newtcolorbox{jtmisconception}{
+  enhanced,sharp corners,frame hidden,colback=white,
+  borderline west={2.2pt}{0pt}{jtred},left=8pt,right=4pt,top=2pt,bottom=3pt,
+  before skip=5pt,after skip=6pt,
+  coltitle=jtred,fonttitle=\sffamily\bfseries\fontsize{7.8}{9}\selectfont,
+  title={COMMON MISTAKES},attach title to upper={\par\vspace{2pt}},
+  fontupper=\fontsize{9.4}{12.4}\selectfont}
+\tcbset{jtboxlist/.style={leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt}}
+\newcommand{\jtbul}{\begin{itemize}[jtboxlist]}\newcommand{\jtbulend}{\end{itemize}}
+
+% ---------------------------------------------------------------- 章内真题练习块
+\newcounter{jtprac}
+\newcommand{\jtprac}[2]{%
+  \par\needspace{8.6cm}\stepcounter{jtprac}\vspace{0.16cm}%
+  \pdfbookmark[2]{Past paper practice: #2}{jt-prac-\arabic{jtprac}}%
+  {\color{jtred}\rule{\linewidth}{0.5pt}}\par\vspace{3pt}%
+  {\color{jtred}\sffamily\bfseries\fontsize{8}{10}\selectfont PAST PAPER PRACTICE}\enspace
+  {\color{jtred}\bfseries\fontsize{10.5}{12.5}\selectfont #2}\par\vspace{3pt}%
+}
+% 概念/说理题块标题
+\newcommand{\jtconcept}[2]{%
+  \par\needspace{6cm}\vspace{0.10cm}%
+  {\color{jtred}\sffamily\bfseries\fontsize{8}{10}\selectfont WRITTEN \& EXPLAIN}\enspace
+  {\color{jtred}\bfseries\fontsize{9.8}{12}\selectfont #2}\par\vspace{2pt}%
+}
+
+
+% 书面简答/概念题：\jtwritten{<题号 W1>}{<来源>}{<分值>}{<图片>}
+\newcommand{\jtwritten}[4]{%
+  \par\needspace{4cm}\vspace{0.14cm}%
+  {\color{jtred}\sffamily\bfseries\fontsize{9}{11}\selectfont #1}\enspace
+  {\color{jtnode}\sffamily\fontsize{8}{10}\selectfont #2\quad[#3]\par}\nobreak
+  \vspace{0.06cm}\noindent\jtimg[0.96\linewidth]{#4}\par
+}
+
+
+% 自编说理题（明确标注非真题）：\jtselfq{<题号>}{<分值>}{<题干>}
+\newcommand{\jtselfq}[3]{%
+  \par\needspace{5.2cm}\vspace{0.14cm}%
+  {\color{jtred}\sffamily\bfseries\fontsize{9}{11}\selectfont #1}\enspace
+  {\color{jtnode}\sffamily\fontsize{7.8}{10}\selectfont Author-written exam-style question\quad[#2]\par}\nobreak
+  \vspace{0.06cm}{\fontsize{10}{13.2}\selectfont #3\par}\nobreak
+  \ifkey\else\scribble[3]\fi
+}
+
+% ---------------------------------------------------------------- 页脚说明（末页）
+\newcommand{\jtcolophon}[1]{%
+  \par\vspace{0.4cm}{\color{jtnode}\fontsize{8}{11}\selectfont #1\par}}

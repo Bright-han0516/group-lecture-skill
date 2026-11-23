@@ -1,0 +1,64 @@
+% =============================================================================
+% jt_topic.tex — 集团版主题讲义起步骨架（复制到 <Topic>/src/<Code>.tex 后替换）
+% 使用说明见同目录 TOPIC_KIT.md；完整做法见 README.md 与 references/pipeline.md
+% =============================================================================
+\documentclass[11pt,a4paper]{article}
+\input{../../_模板/jt_lecture.tex}
+\jtlogo{../../_模板/assets/logo.png}
+\graphicspath{{assets/}{../../_模板/assets/}}
+\hypersetup{pdftitle={Physics %%CODE%% %%TITLE%%},pdfauthor={Group Lecture Builder}}
+\begin{document}
+\thispagestyle{empty}
+% %%CODE%% = A.3 / B.1 …；%%ENUPPER%% = WORK, ENERGY AND POWER；%%HEADER%% = header_a3.jpg
+\jtcover{%%CODE%%}{%%ENUPPER%%}{%%HEADER%%}
+
+% ============================================================ 1
+\jtchapter{1}{%%CH1_TITLE%%}
+
+\jtsub{1.1}{%%SECTION TITLE%%}
+
+Introductory paragraph (English, 2--4 sentences) setting a physical situation, then the first key idea.
+
+\begin{jttab}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{3.0cm}|}
+\hline
+\jtrowhead{} & \jtheadc{definition} & \jtheadc{unit}\\\hline
+quantity & definition with \blank[2.0cm]{answer} & \blank[1.0cm]{unit}\\\hline
+\end{jttab}
+
+\eqd{\text{key equation}}
+\key{Key sentence to remember.}
+
+\jtfig[0.62]{fig_xxx.png}{Hodder, \textit{Physics for the IB Diploma} (2023). Caption.}
+
+\jtexample{Worked example 1.1 \quad short title}
+Situation with numbers.
+\begin{itemize}
+  \item quantity: \blank[1.8cm]{value}
+  \item quantity: \blank[1.8cm]{value}
+\end{itemize}
+
+\begin{jtexamfocus}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item How IB asks this; mark-scheme expectation.
+  \item Answer format requirement (2 s.f., unit, 'show that' working).
+\end{itemize}
+\end{jtexamfocus}
+
+\begin{jtmisconception}
+\begin{itemize}[leftmargin=1.05em,itemsep=1pt,topsep=1pt,parsep=0pt]
+  \item Typical student error 1.
+  \item Typical student error 2.
+\end{itemize}
+\end{jtmisconception}
+
+\IfFileExists{%%STEM%%_p1.tex}{\input{%%STEM%%_p1.tex}}{}
+
+% ============================================================ 2
+\jtchapter{2}{%%CH2_TITLE%%}
+% … repeat the same structure for chapters 2..N …
+% Each chapter ends with: \IfFileExists{%%STEM%%_pN.tex}{\input{%%STEM%%_pN.tex}}{}
+
+\jtcolophon{Source notes: syllabus statements from \textit{Physics guide --- First assessment 2025}
+(IBO, 2023); figures from Hodder, \textit{Physics for the IB Diploma}, 3rd edition (2023).}
+
+\end{document}

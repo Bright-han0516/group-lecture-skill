@@ -1,0 +1,31 @@
+# generated PDFs and build artefacts
+dist/
+qa/build/
+qa/preview/
+examples/demo/Demo_Topic/dist/
+examples/demo/Demo_Topic/qa/build/
+examples/demo/Demo_Topic/qa/preview/
+
+# LaTeX intermediates
+*.aux
+*.log
+*.out
+*.toc
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+*.bbl
+*.blg
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# local overrides and secrets
+.env
+.DS_Store
+Thumbs.db
