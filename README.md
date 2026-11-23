@@ -18,11 +18,23 @@ Requirements: XeLaTeX (TeX Live / TinyTeX), Python 3.9+, PyMuPDF. Poppler is opt
 `/usr/bin/python3`, not a Homebrew Python.
 
 ```bash
-mkdir -p ~/.dsh/skills
-gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-builder
-cd ~/.dsh/skills/group-lecture-builder
+gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill
+cd ~/group-lecture-skill
 ./bootstrap.sh
 ```
+
+This just verifies the toolchain. To install as a skill, clone into the directory
+your host scans:
+
+| Host | Clone target | Entry |
+|---|---|---|
+| DSH | `~/.dsh/skills/group-lecture-builder` | `SKILL.md` |
+| Claude Code | `~/.claude/skills/group-lecture-builder` | `SKILL.md` |
+| Codex / Cursor / Kimi Code | any directory, e.g. `~/group-lecture-skill` | `AGENTS.md` / `CLAUDE.md` |
+| WorkBuddy / Doubao Office | no clone; use the ZIP or paste `PROMPT.md` | `PROMPT.md` |
+
+Only skill-scanning hosts require the directory name to match the `name` in
+`SKILL.md`. Coding agents read `AGENTS.md` from the repo root.
 
 `bootstrap.sh` runs preflight, builds the demo, and runs QA in one go. It prints
 `READY` only if all three pass; otherwise it stops at the first failure. Expected:
@@ -44,9 +56,8 @@ your host uses a different one):
 
 ```text
 Run this, then paste the last 30 lines of output:
-mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
-  ~/.dsh/skills/group-lecture-builder && \
-  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
+  cd ~/group-lecture-skill && ./bootstrap.sh
 
 If bootstrap fails, stop and show me the FAIL lines and fix hints.
 If it succeeds, read SKILL.md and ask me for the materials in MATERIALS.md.
@@ -69,7 +80,8 @@ Copy-paste prompts for build, review and conversion: [PROMPT.md](PROMPT.md).
 
 ### Install as a skill
 
-DSH scans `~/.dsh/skills/<name>/SKILL.md`. Clone the repo to the skill name:
+DSH scans `~/.dsh/skills/<name>/SKILL.md`; Claude Code scans
+`~/.claude/skills/<name>/SKILL.md`. For those two, clone to the skill name:
 
 ```bash
 mkdir -p ~/.dsh/skills
@@ -77,9 +89,9 @@ gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-bui
 cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
 ```
 
-Claude Code uses `~/.claude/skills/` in the same way. The repo directory name can
-differ from the skill name; keep the clone target as `group-lecture-builder` so it
-matches the frontmatter.
+Codex, Cursor and Kimi Code do not need a skill directory: clone anywhere and let
+them read `AGENTS.md` (or `CLAUDE.md`). The directory name only matters to hosts that
+scan a skills folder.
 
 Then give the agent this bootstrap prompt:
 

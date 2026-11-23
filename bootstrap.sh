@@ -8,7 +8,8 @@ cd "$ROOT"
 
 if [ ! -f SKILL.md ] || [ ! -d examples/demo ]; then
   echo "error: run this script from the group-lecture-skill repository root." >&2
-  echo "clone: gh repo clone Bright-han0516/group-lecture-skill ~/.dsh/skills/group-lecture-builder" >&2
+  echo "clone: gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill" >&2
+  echo "       (skill hosts: clone into their skills directory instead)" >&2
   exit 1
 fi
 

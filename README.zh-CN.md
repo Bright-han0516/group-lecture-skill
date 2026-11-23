@@ -11,10 +11,21 @@ demo 都在里面；构建时不联网。
 在终端执行（需要已登录 `gh`，并且账号有私有仓库权限）：
 
 ```bash
-mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
-  ~/.dsh/skills/group-lecture-builder && \
-  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
+  cd ~/group-lecture-skill && ./bootstrap.sh
 ```
+
+这只是“先跑通”。如果要装成 skill，把 clone 目标换成宿主扫描的目录：
+
+| 宿主 | clone 目标 | 入口文件 |
+|---|---|---|
+| DSH | `~/.dsh/skills/group-lecture-builder` | `SKILL.md` |
+| Claude Code | `~/.claude/skills/group-lecture-builder` | `SKILL.md` |
+| Codex / Cursor / Kimi Code | 任意目录，例如 `~/group-lecture-skill` | `AGENTS.md` / `CLAUDE.md` |
+| WorkBuddy / 豆包办公 | 不 clone，用 ZIP 或粘贴 `PROMPT.md` | `PROMPT.md` |
+
+目录名只对会扫描 skills 目录的宿主重要：`group-lecture-builder` 要和 `SKILL.md` 的
+`name` 一致。Codex 这类 coding agent 不要求目录名，它读仓库根的 `AGENTS.md`。
 
 `bootstrap.sh` 会自动做三件事：
 
@@ -31,16 +42,14 @@ mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
 ```text
 请在终端执行下面这一条命令，然后把最后 30 行输出贴给我：
 
-mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
-  ~/.dsh/skills/group-lecture-builder && \
-  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
+  cd ~/group-lecture-skill && ./bootstrap.sh
 
 如果 bootstrap 失败，停下来，把 FAIL 行和 fix 建议贴给我，不要继续写讲义。
 成功后读 SKILL.md，并按 MATERIALS.md 向我要素材。
 ```
 
-如果 `~/.dsh/skills` 不是你的宿主使用的目录，把路径换成该宿主的 skills 目录；
-Codex 也可以 clone 到 `~/group-lecture-skill`，不一定要装成 skill。
+如果宿主会扫描 skills 目录，把 `~/group-lecture-skill` 换成上表中的对应路径即可。
 
 ## 不是所有 agent 都能“出片”
 
@@ -59,7 +68,7 @@ Codex 也可以 clone 到 `~/group-lecture-skill`，不一定要装成 skill。
 TeX；连命令都跑不了 → 只能评审。详见 [docs/hosts.md](docs/hosts.md)。
 
 > 私有仓库：Codex / Kimi Code 需要 GitHub 登录态或被加为 collaborator；
-> WorkBuddy / 豆包办公通常拿不到私有仓库，请给它 v0.1.1 Release 里的源码 ZIP，
+> WorkBuddy / 豆包办公通常拿不到私有仓库，请给它 v0.2.0 Release 里的源码 ZIP，
 > 或让它只做评审。
 
 ## 开始前要准备的素材
@@ -153,4 +162,4 @@ references/               流程、版式、选题、QA、坑
 - [docs/hosts.md](docs/hosts.md)（各宿主怎么用）
 - [PROMPT.md](PROMPT.md)（复制给 AI 的提示词）
 - [MATERIALS.md](MATERIALS.md)（素材清单）
-- [v0.1.1 Release](https://github.com/Bright-han0516/group-lecture-skill/releases/tag/v0.1.1)
+- [v0.1.1 Release](https://github.com/Bright-han0516/group-lecture-skill/releases/tag/v0.2.0)

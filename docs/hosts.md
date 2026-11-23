@@ -6,6 +6,21 @@ for chat-only tools. The actual build needs a shell with XeLaTeX and Python.
 
 Last verified: 2026-11-23.
 
+## Where to put the repo
+
+| Host | Path | Entry it reads |
+|---|---|---|
+| DSH | `~/.dsh/skills/group-lecture-builder` | `SKILL.md` |
+| Claude Code | `~/.claude/skills/group-lecture-builder` | `SKILL.md` |
+| Codex | any directory, e.g. `~/group-lecture-skill` | `AGENTS.md` |
+| Cursor | any directory, e.g. `~/group-lecture-skill` | `AGENTS.md` |
+| Kimi Code | any directory; verify its docs | `AGENTS.md` / `CLAUDE.md` |
+| WorkBuddy / Doubao Office | no local path; ZIP or paste | `PROMPT.md` |
+
+The directory name `group-lecture-builder` matters only to hosts that scan a skills
+folder and match it to the `name` in `SKILL.md`. Coding agents that read `AGENTS.md`
+do not care about the folder name.
+
 | Host | Entry it reads | Can run shell? | Build PDFs? | Best use |
 |---|---|---|---|---|
 | **Codex** (CLI/IDE) | `AGENTS.md` | Yes (Windows via WSL) | Yes, if TeX Live is installed | Full pipeline |
@@ -26,9 +41,8 @@ Give the agent this, verbatim:
 ```text
 Run this, then paste the last 30 lines of output:
 
-mkdir -p ~/.dsh/skills && gh repo clone Bright-han0516/group-lecture-skill \
-  ~/.dsh/skills/group-lecture-builder && \
-  cd ~/.dsh/skills/group-lecture-builder && ./bootstrap.sh
+gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
+  cd ~/group-lecture-skill && ./bootstrap.sh
 
 If bootstrap fails, stop and show me the FAIL lines and fix hints.
 If it succeeds, read MATERIALS.md and ask me for the missing materials.
