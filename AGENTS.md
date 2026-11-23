@@ -7,8 +7,9 @@ anything.
 
 1. `README.md` — what the package is and is not.
 2. `SKILL.md` — the contract and the pipeline.
-3. `references/README.md` — which deep-dive file to read next.
-4. Only then open the template or a reference.
+3. `docs/hosts.md` — how this host reads the repo and what it can run.
+4. `references/README.md` — which deep-dive file to read next.
+5. Only then open the template or a reference.
 
 ## Before you change code
 

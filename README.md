@@ -37,6 +37,9 @@ Expected: two PDFs in `examples/demo/Demo_Topic/dist/`, and a QA report with
 A URL alone is not an installation. The agent must be able to read the files and
 run a shell. If it cannot run `xelatex`, it cannot produce the PDFs.
 
+Host-specific setup and a 5-minute compatibility test: [docs/hosts.md](docs/hosts.md).
+Copy-paste prompts for build, review and conversion: [PROMPT.md](PROMPT.md).
+
 ### Install as a skill
 
 DSH scans `~/.dsh/skills/<name>/SKILL.md`. Clone the repo to the skill name:
