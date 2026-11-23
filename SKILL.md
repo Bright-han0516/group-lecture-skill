@@ -11,6 +11,10 @@ LaTeX template. The model writes content; the template owns the visual design.
 This repository is self-contained: template, fonts, rsfs, placeholder assets,
 QA script and a runnable demo are included. Nothing is fetched at build time.
 
+## Cross-project installation
+
+For Codex or Claude Code user-level installation, see `docs/installation.md`. Install once, then invoke `group-lecture-builder` in any project. Always resolve tooling relative to the installed `SKILL.md` location; never assume the working directory is the skill repository.
+
 ## First run (do this before any topic)
 
 ```bash
@@ -21,11 +25,15 @@ It picks a Python with PyMuPDF, runs preflight, builds the demo (student + key) 
 runs the structural QA. It prints `READY` only if all three pass. If it fails, stop
 and report the FAIL lines; do not start writing a topic on a broken toolchain.
 
+## Exam-board selection
+
+Read `references/boards.md`. The supported `--board` values are `IB`, `CIE`, `AQA`, `EDEXCEL` and `AP`. Use the supplied syllabus version to determine level labels and question-citation fields; do not apply IB SL/HL or TZ requirements to other boards. `--board` controls output filenames but is not a substitute for verifying syllabus alignment.
+
 ## Materials gate (before writing)
 
 Read `MATERIALS.md` and ask the user for every missing item. At minimum: board and
-topic code, level and hours, syllabus path/section, textbook PDF + page offset,
-past-paper folder + allowed range, official mark-scheme folder, course root, and
+topic code, level and hours, syllabus path/section, textbook PDF + page offset (recommended, not required),
+past-paper folder + allowed range, official mark-scheme folder (recommended, not required), course root, and
 output constraints.
 
 **Do not start writing if the syllabus or the question corpus is missing.** Say what
@@ -49,7 +57,7 @@ The full checklist, including the textbook and mark-scheme paths, is in
 
 | Phase | Who | Output |
 |---|---|---|
-| 0 Scaffold | lead | `python3 scripts/scaffold_topic.py --root <course> A.3 Energy "Work, energy and power"` |
+| 0 Scaffold | lead | `python3 "<SKILL_ROOT>/scripts/scaffold_topic.py" --board IB --root <course> A.3 Energy "Work, energy and power"` |
 | 1 Chapter map | lead | 3–5 chapters × 2–4 sections, written into `qa/chapter_map.md`; one user confirmation |
 | 2 Body | body agent | `src/<Stem>.tex` + `src/assets/fig_*.png` + `MANIFEST.md` |
 | 3 Practice | practice agent, parallel | `src/<Stem>_p<N>.tex` + `src/assets/exam*/` + `qa/practice_mapping.md` |
@@ -66,6 +74,10 @@ Rules that prevent parallel work from drifting:
 - File ownership: body agent writes only `<Stem>.tex`, `fig_*`, `MANIFEST.md`;
   practice agent writes only `_p<N>.tex`, `exam*`, `practice_mapping.md`.
   Only the lead runs `build.sh`; parallel builds fight over `qa/build/`.
+
+## Academic QA
+
+Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
 
 ## Build and QA
 
