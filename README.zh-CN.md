@@ -1,199 +1,160 @@
-# 集团版讲义 Skill（中文说明）
+# Group Lecture Builder｜AI 讲义制作 Skill
 
-把「一个考局的一个主题」做成两本 PDF：**学生版**（留空、练习）和**答案版**（答案 +
-中文解析）。视觉版式固定在 LaTeX 模板里，AI 只负责填内容，不负责“设计”。
+[English](README.md) · [安装细节](docs/installation.md) · [素材清单](MATERIALS.md) · [示例说明](examples/README.md)
 
-这个仓库是可直接分发的版本：模板、字体、`rsfs`、占位素材、QA 脚本和一个能跑的
-demo 都在里面；构建时不联网。
+把考纲和真实题目交给 AI，按统一模板制作**学生版讲义**与**答案版讲义**。本项目提供讲义工作流、LaTeX 模板、构建脚本和检查规范；AI 负责读取素材、规划章节、编写内容并调用工具生成 PDF。
 
-## 不会用终端？直接把下面的话发给 AI
+> **适合谁？** 希望让 AI 辅助制作国际课程专题讲义的教师。当前主要按**物理及其他理科讲义**设计并测试；其他学科可以试用，但其题型、讲解方式和审核标准尚未系统适配，**不要将物理规则原样套用到所有学科**。
 
-如果你使用的是能访问本地文件、执行命令的 AI 编程助手（例如 Codex 或 Claude Code），可以直接复制这段话，无需自己输入安装命令：
+## 先看这里：3 步开始使用
+
+| 步骤 | 你需要做什么 | AI 负责什么 |
+|---|---|---|
+| **1. 安装** | 把下方安装提示词复制给支持本地操作的 AI | 获取仓库、注册为全局 Skill、检查环境并运行示例 |
+| **2. 提供素材** | 准备对应考纲与有授权的真题 | 确认考纲版本、题目来源与缺失资料 |
+| **3. 开始制作** | 说明学科、考局、主题与课时 | 规划章节、制作双版本 PDF、提交检查记录供教师审核 |
+
+**无需先学习 Git 或终端。** 但你使用的 AI 必须能够读写本地文件、执行命令。仅能聊天或浏览网页的 AI，无法保证替你安装 Skill 或在电脑上编译 PDF。
+
+## 1. 一段话，让 AI 协助安装（推荐）
+
+将下面整段复制到 **Codex、Claude Code 等具备本地文件和终端执行能力的 AI 助手**中：
 
 ```text
-请帮我安装一个用于制作多学科课程讲义的 AI Skill。
+请帮我安装一个用于制作课程讲义的 AI Skill。
 
-GitHub 仓库：
-https://github.com/Bright-han0516/group-lecture-skill
+GitHub 仓库：https://github.com/Bright-han0516/group-lecture-skill
 
-请按以下步骤操作：
-1. 访问仓库并阅读 README.zh-CN.md、SKILL.md 和 docs/installation.md。不要只凭仓库名称推断功能。
-2. 检查当前操作系统、AI 工具及其权限，确认能否访问本地文件、执行命令和安装用户级 Skill。
-3. 如果兼容，按官方说明将 Skill 注册到当前 AI 工具的用户级 Skill 目录，使它在其他项目和新对话中也能被调用；不得擅自覆盖已有 Skill。
-4. 检查 Git、Python、PyMuPDF、XeLaTeX 和相关依赖。缺少依赖时说明如何修复；涉及管理员权限、大型软件下载或覆盖文件，先征得我的同意。
-5. 运行仓库的 bootstrap.sh、Demo PDF 构建和 QA。真实报告执行结果；不要把“注册成功”当作“PDF 环境验证通过”。
-6. 重新启动或打开新的 AI 会话，测试能否在其他项目识别 group-lecture-builder，并告诉我如何调用。
-7. 如果当前工具没有本地执行能力，请说明限制，改为提供可行的安装方案，不要声称已安装成功。
+我不熟悉终端操作，请在你具有权限的范围内尽量直接完成安装，不要只返回一串命令。
 
-请尽量替我完成可以安全执行的安装操作。我不熟悉终端，希望你优先自动操作，而不是仅返回命令。
+要求：
+1. 先阅读仓库的 README.zh-CN.md、SKILL.md、docs/installation.md 和 install.sh，确认实际支持的安装方式。
+2. 检查我的操作系统、当前 AI 工具、文件读写和终端执行权限。如果当前环境不支持，请明确说明限制，不要声称已安装。
+3. 如果兼容，请把 Skill 安装到当前工具的用户级 Skill 目录，确保它能在不同项目、新对话中被发现。若已有安装，请先检查并说明如何安全更新；不要覆盖或删除现有文件。
+4. 检查 Git、Python、PyMuPDF、XeLaTeX 等依赖。小范围只读检查可以直接进行；涉及系统软件安装、管理员权限、大型下载、覆盖文件或修改系统配置时，请先征得我的同意。
+5. 安装后运行 bootstrap.sh，报告环境检测、Demo 的学生版和答案版 PDF 构建、结构 QA 的真实输出。区分“Skill 注册成功”和“PDF 构建环境就绪”。
+6. 在新的项目目录或新会话中验证能否调用 group-lecture-builder；若不能验证，注明尚未验证。
+7. 最后告诉我安装状态、仍需处理的问题，以及如何用自然语言制作第一份讲义。
+
+不要自行编造测试结果，也不要把示例构建通过当成正式讲义的学科质量已通过。
 ```
 
-**注意：** 该 Skill 当前以国际课程、理科类讲义工作流为主要设计和测试场景，其他学科可以尝试，但尚未经过系统验证。学科内容、练习形式和评分标准必须根据用户提供的对应考纲和真实题目调整，不能机械套用物理公式、计算题或 IB 的考试规范。最低素材仍为考纲与有授权的真题；教材与官方评分标准可提高质量。
+**安装成功应看到什么？** AI 能在新项目中找到 `group-lecture-builder`；运行 `bootstrap.sh` 时如果环境完备，会显示 `READY`，并生成 Demo 的两份 PDF。前者说明 Skill 被注册，后者说明当前机器可以运行示例构建，**都不代表真实讲义已经通过学科审核**。
 
-纯聊天型 AI 如果无法运行本地命令，可以帮助阅读、审稿和设计内容，但不能保证安装或编译 PDF。
+### 我的 AI 能直接安装吗？
 
-## 一条命令安装成全局 Skill（Codex / Claude Code）
+| 使用环境 | 推荐方式 |
+|---|---|
+| **Codex / Claude Code**（可执行本地命令的桌面或 CLI 环境） | 使用上面的对话提示词，优先安装到全局 Skill 目录 |
+| Cursor、Kimi Code 或其他编程 Agent | 先让 AI 检查自身的 Skill 发现机制与终端权限；不能直接照搬 Codex/Claude 的安装目录 |
+| 普通 ChatGPT / 豆包 / Kimi 等聊天窗口 | 可帮忙分析素材、规划章节或审核草稿；如果没有本地命令权限，就不能直接完成本地安装与 PDF 构建 |
 
-macOS / Linux / Windows WSL 可运行（也可以让具备本地执行能力的 AI 代为运行）：
+这里说的是**工具能力**而非模型名称。某款产品是否支持，最终以实际运行和验证结果为准。
+
+## 2. 安装后，制作第一份讲义
+
+先把这些信息告诉 AI；**不用一次填写所有字段，缺什么由 AI 追问**：
+
+| 项目 | 说明 | 必要性 |
+|---|---|---|
+| 学科、考局、考纲版本 | 例如物理、CIE 9702、对应考试年度及版本 | 必需 |
+| 主题与范围 | 例如 Motion、指定考点或 section | 必需 |
+| **考纲** | PDF 文件或 AI 能读取的本地文件路径 | **必需** |
+| **真实题目** | 有权使用的真题文件及允许的年份、试卷范围 | **必需** |
+| 级别、课时与输出要求 | 如 AS/A2、SL/HL、4 课时、题量和篇幅 | 需说明或确认 |
+| **教材** | PDF、版次及相关章节；有助于补充例子和图示 | 推荐 |
+| **官方评分标准（MS）** | 与题目对应的 Mark Scheme；用于核实给分点 | 推荐 |
+| 课程输出文件夹 | 存放生成的源文件、PDF 和审核记录 | 可由 AI 协助确定 |
+
+> **底线：没有考纲或真实题目，不进入正式生产。** 不能虚构考题年份、卷号、题号或评分标准。没有教材仍可制作；没有 MS 时可独立求解，但要标注“未经官方 MS 核实”并交教师核查。具体见 [MATERIALS.md](MATERIALS.md)。
+
+安装后可以直接这样告诉 AI：
+
+```text
+请调用 group-lecture-builder，制作一份 CIE 9702 AS 的 Motion 专题讲义。
+我会提供对应版本的考纲和允许使用的真题，教材及 MS 如有也会提供。
+先核对素材并给出章节规划，再制作学生版与答案版 PDF。
+请提供考纲覆盖、题目来源及答案核验记录；不要编造真题来源。
+```
+
+想尝试数学、化学、生物等其他学科时，可以要求 AI **先检查该学科题型是否适合当前模板**，明确哪些物理专用规范需要调整；首次试用建议选一个较小主题，并由任课教师重点审阅。
+
+## 3. 最后会得到什么？
+
+当前工作流的主要交付物：
+
+- **学生版 PDF**：英文知识讲解、填空、例题和练习（当前模板默认英文正文）。
+- **答案版 PDF**：与学生版基于同一份 LaTeX 源文件生成，包含答案和中文解析。
+- **源文件与素材目录**：可修改的 `.tex` 文件、图片及构建脚本。
+- **检查记录**：PDF 技术检查结果、考纲覆盖、真题来源及学科审核记录（`qa/academic_review.md`）。
+
+AI 可以辅助核查公式、计算、来源和题目答案；**学科审核仍需要老师最终确认**。视觉表现、教学安排、解释是否充分、是否适合当前学生，也由教师决定。
+
+## 4. 更习惯自己操作？手动安装
+
+下面命令适用于 **macOS、Linux 或 Windows WSL**，其中 `git` 需要已安装。它把仓库下载到固定位置，并分别注册到 Codex 与 Claude Code 的**用户级 Skill 目录**：
 
 ```bash
 git clone https://github.com/Bright-han0516/group-lecture-skill.git "$HOME/.local/share/group-lecture-builder" && bash "$HOME/.local/share/group-lecture-builder/install.sh" --hosts all
 ```
 
-注册后在任意项目的新 AI 会话中说明“使用 group-lecture-builder 制作讲义”。安装器不会静默安装大型 TeX 发行版；安装后执行 `cd "$HOME/.local/share/group-lecture-builder" && ./bootstrap.sh` 检查 PDF 构建环境。参见 [详细安装说明](docs/installation.md)。
-
-## 旧版环境验证
-
-旧版方式：使用 GitHub CLI（`gh`）克隆后验证运行环境；不负责全局 Skill 注册。
+然后验证 PDF 构建环境：
 
 ```bash
-gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
-  cd ~/group-lecture-skill && ./bootstrap.sh
+cd "$HOME/.local/share/group-lecture-builder"
+./bootstrap.sh
 ```
 
-这只是“先跑通”。如果要装成 skill，把 clone 目标换成宿主扫描的目录：
+- **注册成功 ≠ 环境准备完成**：`install.sh` 不会自动安装完整 TeX Live；`bootstrap.sh` 用于检查依赖、构建 Demo 和进行结构 QA。
+- 安装目录已经存在时，`git clone` 会失败；**不要直接删除原目录**。请按 [更新说明](docs/installation.md#update-an-existing-installation)检查并更新。
+- 安装器不会覆盖其他同名 Skill；全局 Skill 目录的具体规则以当前客户端为准。
+- Windows 原生 PowerShell 不是目前验证过的构建路径；建议在 WSL 内运行。
+- 若想先确认 Demo 构建能力，再开始制作真实讲义，务必先看到 `READY`。
 
-| 宿主 | clone 目标 | 入口文件 |
-|---|---|---|
-| DSH | `~/.dsh/skills/group-lecture-builder` | `SKILL.md` |
-| Claude Code | `~/.claude/skills/group-lecture-builder` | `SKILL.md` |
-| Codex / Cursor / Kimi Code | 任意目录，例如 `~/group-lecture-skill` | `AGENTS.md` / `CLAUDE.md` |
-| WorkBuddy / 豆包办公 | 不 clone，用 ZIP 或粘贴 `PROMPT.md` | `PROMPT.md` |
+完整安装说明：[docs/installation.md](docs/installation.md)。
 
-目录名只对会扫描 skills 目录的宿主重要：`group-lecture-builder` 要和 `SKILL.md` 的
-`name` 一致。Codex 这类 coding agent 不要求目录名，它读仓库根的 `AGENTS.md`。
+## 5. 常见问题
 
-`bootstrap.sh` 会自动做三件事：
+| 遇到的问题 | 建议检查 |
+|---|---|
+| AI 说打不开 GitHub | 确认网络访问及工具的网页/仓库读取权限；仓库现已公开 |
+| AI 只能给命令，无法替我安装 | 当前对话可能没有本地终端或文件操作权限；切换到具备这些权限的编程 Agent |
+| 安装后在新项目里找不到 Skill | 核对用户级 Skill 目录、链接是否有效；重启或新建 AI 会话，验证是否支持自动发现 |
+| 安装时提示目标文件夹已存在 | 不要覆盖；先使用已有仓库更新流程，或让 AI 检查现有安装 |
+| `xelatex` / TeX 包缺失 | 需要安装适合系统的 TeX Live 组件；大型系统安装应先征得同意 |
+| `No module named 'fitz'` | 检查当前 Python 是否安装 PyMuPDF，按 `bootstrap.sh` 的提示修复 |
+| 中文解析显示方框 | 检查 Songti SC / Fandol 等中文字体 |
+| Demo 通过，但正式讲义内容有错 | Demo 只验证环境和模板；根据 `academic_review.md` 核实考纲、题目来源、计算与答案 |
 
-1. 检查 XeLaTeX、宏包、字体、`rsfs`、PyMuPDF；
-2. 构建 `examples/demo` 的学生版和答案版；
-3. 跑结构 QA（空白页、缺图、路径泄漏、字体嵌入、学生版中文字符）。
+更详细的宿主和运行限制参见 [docs/installation.md](docs/installation.md) 与 [references/known-pitfalls.md](references/known-pitfalls.md)。
 
-全部通过会打印 `READY`，并提醒你准备哪些素材；失败会停在第一个错误，不会假装通过。
-
-### 让 AI 自己执行
-
-把下面这段直接发给 Codex / Kimi Code / Claude Code / DSH 这类能跑命令的 agent：
+## 6. 给维护者：工作流程与文件入口
 
 ```text
-请在终端执行下面这一条命令，然后把最后 30 行输出贴给我：
-
-gh repo clone Bright-han0516/group-lecture-skill ~/group-lecture-skill && \
-  cd ~/group-lecture-skill && ./bootstrap.sh
-
-如果 bootstrap 失败，停下来，把 FAIL 行和 fix 建议贴给我，不要继续写讲义。
-成功后读 SKILL.md，并按 MATERIALS.md 向我要素材。
+SKILL.md                    AI 使用的技能入口
+install.sh                  用户级 Skill 注册（Codex / Claude Code）
+bootstrap.sh                环境检查 + Demo 构建 + 结构 QA
+MATERIALS.md                学科素材清单与开工门槛
+scripts/                    创建主题、编译、检查
+template/                   LaTeX 模板、字体与中性素材
+examples/demo/              可运行示例（非真实考题）
+references/boards.md        考局命名与来源规范
+references/pipeline.md      章节、正文、练习与整合流程
+references/academic-qa.md   学科内容审核证据要求
+docs/installation.md        安装、验证与更新细节
 ```
 
-如果宿主会扫描 skills 目录，把 `~/group-lecture-skill` 换成上表中的对应路径即可。
+更多技术细节参见 [SKILL.md](SKILL.md)、[references/](references/)；自动测试见 [GitHub Actions](https://github.com/Bright-han0516/group-lecture-skill/actions)。
 
-## 不是所有 agent 都能“出片”
+目前通过自动化验证的，是配置好的 Linux 环境中的示例构建及相关脚本测试；**各操作系统、各 AI 客户端及其他学科的完整端到端效果仍需实际验证**。
 
-关键不是模型品牌，而是两条能力：**能不能拿到仓库文件**、**能不能执行 shell + XeLaTeX**。
+## 7. 版权、隐私和许可
 
-| Agent | 读仓库 | 跑构建 | 建议 |
-|---|---|---|---|
-| Codex | ✅ 读 `AGENTS.md` | ✅ 有 shell；Windows 用 WSL | 全流程 |
-| Kimi Code | ⚠️ 看它读哪个入口 | ✅ 如果是 CLI/IDE 形态 | 先跑 `bootstrap.sh` 验证 |
-| Claude Code / DSH | ✅ `SKILL.md` + `AGENTS.md` | ✅ | 装成 skill，全流程 |
-| WorkBuddy | ⚠️ 通常只能读粘贴/文件 | ❌ 一般没有本地 TeX | 评审、改文字 |
-| 豆包办公 | ⚠️ 文档型 | ❌ 基本不能编译 | 评审、润色、列缺口 |
-| 纯聊天 AI | ✅ 能读网页 | ❌ | 只能审稿 |
+- **只将公开适用的代码、原创示例与中性素材放在本仓库**。真题、教材截图、官方 MS、学校 Logo、学生作业和个人资料不要提交到公共 GitHub 仓库。
+- 使用教材、真题和图片应符合相应版权或机构许可；制作完成的 PDF 也不应未经许可公开传播。
+- 本项目不代表 CIE、IB、AQA、Edexcel、AP 或任何出版社的官方产品。
+- 代码和文档采用 [MIT License](LICENSE)；打包字体保留其自身许可，详情见 [NOTICE](NOTICE)。PyMuPDF 为 AGPL/商业双许可，重新分发集成环境时需另行核对授权。
 
-判断方法只有一条：让它跑 `./bootstrap.sh`。三条全过 → 能生产；第一条就挂 → 缺
-TeX；连命令都跑不了 → 只能评审。详见 [docs/hosts.md](docs/hosts.md)。
+---
 
-> 仓库目前公开，可直接访问；但能阅读 GitHub 页面并不等于能访问本地文件或运行 XeLaTeX。无法本地执行的 AI 只能参与内容规划与审稿。
-
-## 开始前要准备的素材
-
-**先读 [MATERIALS.md](MATERIALS.md)。** 最少要给 AI 这些：
-
-1. 考局 + 主题代码 + 英文标题；
-2. 级别（SL / HL / SL+HL）和课时；
-3. 考纲文件路径 + 对应 section；
-4. 教材 PDF 路径 + 版次 +「PDF 页 = 印刷页 + 偏移」；
-5. 允许使用的真题文件夹 + 年份/场次/卷别范围；
-6. 官方 MS（mark scheme）文件夹；
-7. 课程根目录（放 `_模板/` 和 `<Code>_<Name>/` 的绝对路径）；
-8. 输出要求：章节数、页数目标、是否含 HL、题量、中文解析要求。
-
-缺考纲或真题时，agent 必须停下来要材料，不能编年份、卷号、题号。`bootstrap.sh`
-结束时会自动打印这份清单。
-
-## 做一个主题
-
-```bash
-python3 scripts/scaffold_topic.py --root "/你的课程根目录" \
-  A.3 Energy "Work, energy and power"
-
-cd "/你的课程根目录/A3_Energy/src"
-./build.sh
-python3 ../../_模板/check_topic.py ..
-```
-
-产出：
-
-```
-dist/IB_A3_Energy_GroupLecture_Student.pdf
-dist/IB_A3_Energy_GroupLecture_Key.pdf
-```
-
-正文和练习可以由两个 agent 并行写，但**只有 lead 跑 build**；两个 agent 同时构建
-会抢 `qa/build/`。具体分工和 prompt 在 [references/pipeline.md](references/pipeline.md)。
-
-## 目录结构
-
-```
-SKILL.md                  给 agent 的入口卡
-AGENTS.md                 仓库级硬规则（Codex 等会自动读）
-README.md / README.zh-CN.md
-MATERIALS.md              开始前要提供的素材
-PROMPT.md                 复制给 AI 的构建/评审/安装提示词
-bootstrap.sh              一条命令做初步调试
-docs/hosts.md             各家 agent 的兼容性说明
-scripts/                  preflight / scaffold / build / check
-template/                 模板、字体、logo、占位图
-vendor/texmf/             rsfs（不装 TeX 也能找到）
-examples/demo/            能跑的三章 demo
-references/               流程、版式、选题、QA、坑
-```
-
-## QA 门禁
-
-`check_topic.py` 对每本 PDF 检查：
-
-- `blank_pages = []`：无空白页；
-- `path_leaks = []`：无内部路径泄漏；
-- `missing_images = 0`：无缺图；
-- `not_embedded_fonts = []`：字体全嵌入；
-- 学生版 `chinese = 0`：中文只在答案版解析里。
-
-脚本失败会返回 1，可直接接 CI。结构检查不等于“好看”，封面、节末双框、练习块、
-答案页仍要人眼看一遍。
-
-## 常见问题
-
-| 现象 | 原因 | 处理 |
-|---|---|---|
-| `Unable to find TFM file "rsfs10"` | 没走 `build.sh`，或 `TEXMFHOME` 不对 | 用 `build.sh`；它会指向 `vendor/texmf` |
-| `Font ... not found` | 字体路径不对 | 用 `build.sh`；它传 `\JTFONTDIR` |
-| `No module named 'fitz'` | Python 没装 PyMuPDF | `pip install -r requirements.txt`，或换 `/usr/bin/python3` |
-| 答案版中文变方框 | 没有中文字体 | macOS 用 Songti SC；TeX Live 装 `fandol` |
-| `File '' not found` | `\jtlogo` 传了空路径 | 传 `logo.png`，或删掉该行 |
-| Windows 不能跑 `build.sh` | 需要 Bash | 用 WSL 或 Git Bash；原生 PowerShell 未支持 |
-
-## 版权与许可
-
-- 模板是对常见集团讲义风格的独立复刻，**与 CIE / IB / Hodder 无隶属关系**。
-- 仓库不含教材图、真题、官方 MS、学校 logo、学生数据。
-- 代码和文档 MIT；字体是 GUST 许可；`rsfs` 按原作者要求署名。见 `NOTICE`。
-- PyMuPDF 是 AGPL/商业双许可，未打包；分发整套环境前请自行确认许可。
-
-## 相关文件
-
-- [README.md](README.md)（English）
-- [docs/hosts.md](docs/hosts.md)（各宿主怎么用）
-- [PROMPT.md](PROMPT.md)（复制给 AI 的提示词）
-- [MATERIALS.md](MATERIALS.md)（素材清单）
-- [v0.2.0 Release](https://github.com/Bright-han0516/group-lecture-skill/releases/tag/v0.2.0)
+**使用入口：复制 [第 1 节的安装提示词](#1-一段话让-ai-协助安装推荐) 给具备本地执行能力的 AI → 准备考纲与真题 → 开始制作。**
