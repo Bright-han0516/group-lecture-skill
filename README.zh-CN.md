@@ -8,7 +8,17 @@
 这个仓库是可直接分发的版本：模板、字体、`rsfs`、占位素材、QA 脚本和一个能跑的
 demo 都在里面；构建时不联网。
 
-## 一条命令开始（旧版环境验证；全局注册见 docs/installation.md）
+## 一条命令安装成全局 Skill（Codex / Claude Code）
+
+公开仓库后，macOS / Linux / Windows WSL 可运行：
+
+```bash
+git clone https://github.com/Bright-han0516/group-lecture-skill.git "$HOME/.local/share/group-lecture-builder" && bash "$HOME/.local/share/group-lecture-builder/install.sh" --hosts all
+```
+
+注册后在任意项目的新 AI 会话中说明“使用 group-lecture-builder 制作讲义”。安装器不会静默安装大型 TeX 发行版；安装后执行 `cd "$HOME/.local/share/group-lecture-builder" && ./bootstrap.sh` 检查 PDF 构建环境。参见 [详细安装说明](docs/installation.md)。
+
+## 旧版环境验证
 
 在终端执行（需要已登录 `gh`，并且账号有私有仓库权限）：
 
