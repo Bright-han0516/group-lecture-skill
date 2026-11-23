@@ -39,6 +39,13 @@ fi
 CODE="$(basename "$MAIN" .tex)"
 SLUG="${GLB_SLUG:-$(basename "$TOPIC_DIR")}"
 SLUG="$(printf '%s' "$SLUG" | tr ' ' '_')"
+# Explicit board override takes precedence over the scaffold's board marker.
+BOARD="${GLB_BOARD:-}"
+if [ -z "$BOARD" ] && [ -f "$TOPIC_DIR/.glb-board" ]; then
+  BOARD="$(tr -d '[:space:]' < "$TOPIC_DIR/.glb-board")"
+fi
+BOARD="${BOARD:-IB}"
+case "$BOARD" in IB|CIE|AQA|EDEXCEL|AP) ;; *) echo "error: unsupported exam board: $BOARD" >&2; exit 2 ;; esac
 
 XELATEX="${XELATEX:-$(command -v xelatex || true)}"
 [ -n "$XELATEX" ] || { echo "error: xelatex not found; install TeX Live or set XELATEX" >&2; exit 1; }
@@ -64,16 +71,16 @@ run_tex "${CODE}_student" "$BUILD/student.log" \
   "\def\JTFONTDIR{$FONTS_DIR}\input{$MAIN}"
 run_tex "${CODE}_student" "$BUILD/student.log" \
   "\def\JTFONTDIR{$FONTS_DIR}\input{$MAIN}"
-cp "$BUILD/${CODE}_student.pdf" "$OUT/IB_${SLUG}_GroupLecture_Student.pdf"
+cp "$BUILD/${CODE}_student.pdf" "$OUT/${BOARD}_${SLUG}_GroupLecture_Student.pdf"
 
 run_tex "${CODE}_key" "$BUILD/key.log" \
   "\def\JTFONTDIR{$FONTS_DIR}\def\JTKEY{}\input{$MAIN}"
 run_tex "${CODE}_key" "$BUILD/key.log" \
   "\def\JTFONTDIR{$FONTS_DIR}\def\JTKEY{}\input{$MAIN}"
-cp "$BUILD/${CODE}_key.pdf" "$OUT/IB_${SLUG}_GroupLecture_Key.pdf"
+cp "$BUILD/${CODE}_key.pdf" "$OUT/${BOARD}_${SLUG}_GroupLecture_Key.pdf"
 
 if command -v pdfinfo >/dev/null 2>&1; then
-  pdfinfo "$OUT/IB_${SLUG}_GroupLecture_Student.pdf" | grep '^Pages:'
-  pdfinfo "$OUT/IB_${SLUG}_GroupLecture_Key.pdf" | grep '^Pages:'
+  pdfinfo "$OUT/${BOARD}_${SLUG}_GroupLecture_Student.pdf" | grep '^Pages:'
+  pdfinfo "$OUT/${BOARD}_${SLUG}_GroupLecture_Key.pdf" | grep '^Pages:'
 fi
-echo "ok: $OUT/IB_${SLUG}_GroupLecture_{Student,Key}.pdf"
+echo "ok: $OUT/${BOARD}_${SLUG}_GroupLecture_{Student,Key}.pdf"
