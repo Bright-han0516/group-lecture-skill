@@ -8,18 +8,18 @@ XeLaTeX; the review prompt does not.
 ```text
 You are using the group-lecture-skill repository.
 
-1. Read AGENTS.md, README.md and SKILL.md.
-2. Run: ./bootstrap.sh
+1. Read SKILL.md and references/boards.md from the installed skill root. Resolve all script paths from that root, even when my project is elsewhere.
+2. Run: <SKILL_ROOT>/bootstrap.sh
    If it fails, stop and list every FAIL line with its fix hint.
 3. If it passes, read MATERIALS.md and ask me for every missing item:
    board/code/title, level/hours, syllabus path, textbook path + page offset,
    past-paper folder + allowed range, mark-scheme folder, course root, output rules.
    Do not start writing if the syllabus or question corpus is missing.
 4. Only after that, start my topic:
-   - propose a 3-5 chapter map and get my confirmation
+   - select and verify the correct exam-board profile from references/boards.md\n   - propose a 3-5 chapter map and get my confirmation
    - scaffold with scripts/scaffold_topic.py
    - write body + practice as described in references/pipeline.md
-   - build and run check_topic.py; show me the gate output
+   - build and run check_topic.py; show me the gate output\n   - write qa/academic_review.md using references/academic-qa.md with source-backed physics checks
 5. Do not invent past-paper years, question numbers or mark-scheme points.
    If the corpus has no question, use \jtselfq and say so.
 ```
