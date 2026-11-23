@@ -18,7 +18,7 @@ For Codex or Claude Code user-level installation, see `docs/installation.md`. In
 ## First run (do this before any topic)
 
 ```bash
-./bootstrap.sh
+cd "<SKILL_ROOT>" && ./bootstrap.sh
 ```
 
 It picks a Python with PyMuPDF, runs preflight, builds the demo (student + key) and
@@ -42,7 +42,7 @@ is missing; never invent a paper, year, question number, page or mark.
 ## Inputs (ask only for what is missing)
 
 1. **Board + topic code**, e.g. `IB DP Physics A.3` or `CIE 9702 3.1`.
-2. **Level and teaching hours** (SL / HL / SL+HL; 4 h, 8 h, 14 h ...).
+2. **Level and teaching hours** (use the board-specific level convention from `references/boards.md`; 4 h, 8 h, 14 h ...).
 3. **Chapter map**: 3–5 chapters × 2–4 sections, grouped from the syllabus
    understandings. Show it to the user once before writing.
 4. **Course root**: the directory that will hold `_模板/` and `<Code>_<Name>/`.
@@ -166,6 +166,10 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
   prerequisites, correctness) before delivery.
 
 ## Read next
+
+- `docs/installation.md` — user-level cross-project installation and checks.
+- `references/boards.md` — board-specific nomenclature and source rules.
+- `references/academic-qa.md` — source-grounded physics content QA.
 
 - `references/pipeline.md` — full phase detail and the two agent prompts.
 - `references/layout-and-macros.md` — design tokens and every macro.
