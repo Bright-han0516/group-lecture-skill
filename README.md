@@ -1,5 +1,7 @@
 # group-lecture-skill
 
+> Global Skill installation for Codex / Claude Code: [docs/installation.md](docs/installation.md). The installer registers the skill in the user's skill directory, so it works in other projects. Current installation is a development preview until this PR is merged.
+
 [中文说明](README.zh-CN.md)
 
 A self-contained skill for building **group-style topic handouts**: one student PDF
