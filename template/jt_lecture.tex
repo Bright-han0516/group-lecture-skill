@@ -334,8 +334,11 @@
   {\sffamily\bfseries\color{jtred}\footnotesize #1\par}\nobreak\smallskip}
 \newcommand{\jtdefs}[1]{%
   \begin{jtvisualbox}\jtvisualheading{KEY DEFINITIONS}#1\end{jtvisualbox}}
-\newcommand{\keyeq}[1]{%
-  \begin{jtvisualbox}\jtvisualheading{KEY RELATION}\(\displaystyle #1\)\end{jtvisualbox}}
+% The optional text legend stays inside the same non-breakable box.
+\newcommand{\keyeq}[2][]{%
+  \begin{jtvisualbox}\jtvisualheading{KEY RELATION}\(\displaystyle #2\)%
+  \ifstrempty{#1}{}{\par\smallskip{\small\textbf{Symbols.}\enspace #1\par}}%
+  \end{jtvisualbox}}
 % Relative to src/assets/. Keep the caption and image together. Crop long
 % originals into legible parts instead of squeezing a full page into this block.
 \newcommand{\jtevidenceimage}[3]{%

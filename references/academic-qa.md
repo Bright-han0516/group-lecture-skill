@@ -15,7 +15,7 @@ Every in-scope syllabus objective needs a row. Missing objectives cannot be mark
 ## Mandatory academic checks
 
 1. **Syllabus fidelity:** correct board, specification, assessment year, level, and any SL/HL or AS/A2 distinctions; note every missing/out-of-scope point.
-2. **Physics and mathematics:** sign convention, equations and assumptions, units, significant figures, graph interpretation; independently recalculate worked examples and numeric answers.
+2. **Physics and mathematics:** sign convention, equations and assumptions, units, significant figures, graph interpretation. For every standalone teaching/reference formula, confirm the adjacent legend covers all quantities, constants and meaningful notation, with applicable units and conditions, in both PDFs. Treat missing or misleading symbol definitions as blockers. Independently recalculate worked examples and numeric answers.
 3. **Question provenance:** verify file, paper identity, year/session/variant, question number/part and marks against the actual page; flag cropped or unreadable questions.
 4. **Answer validity:** ensure every exercise has an answer. When an official MS is provided, map every relevant point to the MS. When it isn't, state `NOT MS VERIFIED`; never claim official mark-scheme agreement.
 5. **Traceability:** no invented citation, textbook page, image source or exam-reference metadata. Author-written questions must be explicitly marked.
@@ -26,6 +26,7 @@ Every in-scope syllabus objective needs a row. Missing objectives cannot be mark
 - Technical build and PDF checks passed.
 - Every syllabus objective has a mapped section or an explicitly recorded gap.
 - Every exercise is checked for provenance and answer existence.
+- Formula legends are complete and stay with their equation in both rendered editions.
 - Every quantitative result is recalculated; mark-scheme verification only claimed when MS exists.
 - Deliver the teacher both PDFs and `qa/academic_review.md`.
 

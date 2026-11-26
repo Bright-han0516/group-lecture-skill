@@ -9,7 +9,9 @@ with blanks, one answer-key PDF with answers and Chinese worked solutions. The v
 design is fixed in a LaTeX template; the model only fills content through macros.
 
 By default, keep explanations concise, pair them with useful visuals, and box
-core definitions and relations where applicable. In the answer key, place a
+core definitions and relations where applicable. Define each formula symbol directly
+below its relation, in both editions, with units and conditions where applicable.
+In the answer key, place a
 legible official mark-scheme excerpt next to the solution when source and reuse
 permission are available. This does not make the public repository a source of
 exam materials.
