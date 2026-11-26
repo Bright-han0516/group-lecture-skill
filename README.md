@@ -25,7 +25,7 @@ retain project customisations, and rebuild both editions.
 
 ## Recommended onboarding
 
-For nontechnical teachers, copy the installation prompt in the [Chinese quick-start guide](README.zh-CN.md#1-一段话让-ai-协助安装推荐) into a coding agent with local shell and filesystem access. A plain chat assistant cannot install a local skill or build PDFs. This workflow has primarily been designed/tested for physics and adjacent science materials; other subjects are experimental and must adapt content and question requirements to their own syllabus.
+For nontechnical teachers, copy the installation prompt in the [Chinese quick-start guide](README.zh-CN.md#1-一段话让-ai-协助安装推荐) into a coding agent with local shell and filesystem access. The full agent-facing checklist lives in [docs/ai-install.md](docs/ai-install.md). A plain chat assistant cannot install a local skill or build PDFs. This workflow has primarily been designed/tested for physics and adjacent science materials; other subjects are experimental and must adapt content and question requirements to their own syllabus.
 
 Minimum source materials are a syllabus and authorised past questions. Textbooks and official mark schemes are recommended but optional; do not claim mark-scheme verification without the actual MS.
 

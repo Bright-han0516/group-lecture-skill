@@ -25,23 +25,12 @@
 将下面整段复制到 **Codex、Claude Code 等具备本地文件和终端执行能力的 AI 助手**中：
 
 ```text
-请帮我安装一个用于制作课程讲义的 AI Skill。
-
-GitHub 仓库：https://github.com/Bright-han0516/group-lecture-skill
-
-我不熟悉终端操作，请在你具有权限的范围内尽量直接完成安装，不要只返回一串命令。
-
-要求：
-1. 先阅读仓库的 README.zh-CN.md、SKILL.md、docs/installation.md 和 install.sh，确认实际支持的安装方式。
-2. 检查我的操作系统、当前 AI 工具、文件读写和终端执行权限。如果当前环境不支持，请明确说明限制，不要声称已安装。
-3. 如果兼容，请把 Skill 安装到当前工具的用户级 Skill 目录，确保它能在不同项目、新对话中被发现。若已有安装，请先检查并说明如何安全更新；不要覆盖或删除现有文件。
-4. 检查 Git、Python、PyMuPDF、XeLaTeX 等依赖。小范围只读检查可以直接进行；涉及系统软件安装、管理员权限、大型下载、覆盖文件或修改系统配置时，请先征得我的同意。
-5. 安装后运行 bootstrap.sh，报告环境检测、Demo 的学生版和答案版 PDF 构建、结构 QA 的真实输出。区分“Skill 注册成功”和“PDF 构建环境就绪”。
-6. 在新的项目目录或新会话中验证能否调用 group-lecture-builder；若不能验证，注明尚未验证。
-7. 最后告诉我安装状态、仍需处理的问题，以及如何用自然语言制作第一份讲义。
-
-不要自行编造测试结果，也不要把示例构建通过当成正式讲义的学科质量已通过。
+请帮我安装并测试多学科讲义 Skill：group-lecture-builder。
+https://github.com/Bright-han0516/group-lecture-skill
+请读取仓库的 docs/ai-install.md，按流程在我的电脑上尽量自动完成。需要管理员权限、大型下载或覆盖现有文件时先问我；最后用中文汇报实际结果，先别制作讲义。
 ```
+
+完整步骤维护在 [给 AI 的安装与验收流程](docs/ai-install.md)。如果 AI 打不开 GitHub，可以把这个文件发给它；没有本地执行权限时，应换用能操作你电脑的客户端。
 
 **安装成功应看到什么？** AI 能在新项目中找到 `group-lecture-builder`；运行 `bootstrap.sh` 时如果环境完备，会显示 `READY`，并生成 Demo 的两份 PDF。前者说明 Skill 被注册，后者说明当前机器可以运行示例构建，**都不代表真实讲义已经通过学科审核**。
 
@@ -145,6 +134,7 @@ examples/demo/              可运行示例（非真实考题）
 references/boards.md        考局命名与来源规范
 references/pipeline.md      章节、正文、练习与整合流程
 references/academic-qa.md   学科内容审核证据要求
+docs/ai-install.md          短提示词引用的 AI 安装与验收流程
 docs/installation.md        安装、验证与更新细节
 ```
 
