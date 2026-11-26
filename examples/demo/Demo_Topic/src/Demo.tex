@@ -16,9 +16,9 @@
 
 \jtsub{1.1}{Speed and velocity}
 
-A body moves along a straight line. Its position is measured from a fixed origin,
-and its displacement is the change in position. Speed and velocity are related but
-not identical: speed is a scalar, velocity is a vector.
+\jtfig[0.70]{fig_demo_vt.png}{The height gives velocity; the gradient gives acceleration.}
+
+\jtdefs{Speed is distance travelled per unit time. Velocity is the rate of change of displacement.}
 
 \begin{jttab}{|>{\raggedright\arraybackslash}p{3.2cm}|>{\raggedright\arraybackslash}X|>{\centering\arraybackslash}p{2.8cm}|}
 \hline
@@ -28,10 +28,8 @@ velocity & displacement per unit time & \blank[1.4cm]{m s$^{-1}$}\\\hline
 acceleration & rate of change of velocity & \blank[1.4cm]{m s$^{-2}$}\\\hline
 \end{jttab}
 
-\eqd{v = \frac{\Delta s}{\Delta t}}
+\keyeq{\bar v = \frac{\Delta s}{\Delta t}}
 \key{Average velocity uses displacement; average speed uses distance.}
-
-\jtfig[0.72]{fig_demo_vt.png}{Original figure for this demo: velocity against time for uniform acceleration.}
 
 \jtexample{Worked example 1.1 \quad average speed}
 A runner covers 100 m in 20 s. Calculate the average speed.
@@ -65,7 +63,9 @@ A runner covers 100 m in 20 s. Calculate the average speed.
 For constant acceleration, the three equations of motion connect initial velocity
 $u$, final velocity $v$, acceleration $a$, displacement $s$ and time $t$.
 
-\eqd{v = u + at}
+\jtfig[0.74]{fig_demo_slope.png}{In equal time intervals, the graph rises by equal amounts when acceleration is constant.}
+
+\keyeq{v = u + at}
 \eqd{s = ut + \frac{1}{2}at^2}
 \eqd{v^2 = u^2 + 2as}
 
@@ -108,7 +108,7 @@ A car accelerates from rest at $3.0\ \mathrm{m\,s^{-2}}$ for 4.0 s.
 Near the Earth's surface, a freely falling body has a constant downward
 acceleration $g = 9.81\ \mathrm{m\,s^{-2}}$ if air resistance is ignored.
 
-\eqd{s = \frac{1}{2}gt^2}
+\keyeq{s = \frac{1}{2}gt^2 \quad \text{(from rest, downward positive)}}
 \key{Free fall means gravity is the only force acting.}
 
 \jtexample{Worked example 3.1 \quad time of fall}
@@ -135,6 +135,6 @@ A ball is dropped from rest and falls 20 m. Calculate the time of fall.
 \IfFileExists{Demo_p3.tex}{\input{Demo_p3.tex}}{}
 
 \jtcolophon{Source notes: this is an original demo written for the repository.
-No past-paper, textbook or markscheme content is included.}
+No past-paper, textbook or official mark-scheme content is included.}
 
 \end{document}

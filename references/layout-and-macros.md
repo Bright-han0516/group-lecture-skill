@@ -8,6 +8,19 @@ The design is an independent recreation of a common group-handout style (deep-re
 chapter bars, pink table headers, fill-in lines). It is not an official template of
 CIE, IB or any publisher.
 
+## Visual-first conventions
+
+Use \jtdefs{...} and \keyeq{...} for compact definition and essential-relation
+boxes. The latter takes a math expression without dollar delimiters. Put the
+condition beside the relation or in the preceding line. Use ordinary \eqd for
+working and only select a box when it helps a student find a key idea.
+
+Figures, graphs, examples and timelines should each answer a real learning
+question; put them beside the explanation and caption the inference. Do not
+cut a reasoning step to meet a word count or add images to fill a quota.
+\jtms, \jtmsline and \jtmarkpoints are answer-key only; see
+[practice-and-questions.md](practice-and-questions.md) for citation and asset rules.
+
 ## 1. Design tokens
 
 | Item | Value |

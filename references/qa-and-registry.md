@@ -1,5 +1,15 @@
 # QA and optional registry
 
+## Check the rendered answer evidence
+
+For each exercise, verify part-level correspondence between the evidence and
+worked solution when an official MS is supplied. Inspect the rendered key:
+image and caption on one page, legible source/marks, no clipping, no false
+official label for author-written work. Inspect the student PDF for both
+answer headings and answer images; text-based QA alone cannot prove images do
+not leak. Check the selected visuals, definition boxes and relation boxes at
+actual reading size. Teachers determine pedagogical quality.
+
 ## 1. Build
 
 ```bash

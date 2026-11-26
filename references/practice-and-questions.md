@@ -3,6 +3,26 @@
 The practice blocks are what make the handout different from a textbook chapter.
 This file covers the corpus, the crops, numbering and the Chinese solutions.
 
+## Answer-key evidence
+
+For a past-paper item with a supplied official mark scheme and permission to
+reproduce it, place a **legible original excerpt** below the worked solution:
+
+- \jtms{exam, session, paper and question part}{ms/q1a.png}, with the file
+  under src/assets. Include the relevant points, marks and alternatives. For
+  cross-page or tall evidence, split into labelled parts; do not shrink a whole
+  page into an unreadable panel. Check the exact version and preview the result.
+- Use \jtmsline{source and part}{Answer B [1]} for very short official entries
+  whose image would be less readable. This is a transcription, not a crop.
+- If the official source is provided but redistribution is not permitted, omit
+  the image and record the verified reference in academic QA. If no official
+  source is available, mark NOT MS VERIFIED in QA; do not fabricate evidence.
+- For author-written items, use \jtmarkpoints{...}; these are author-written,
+  not an official mark scheme.
+
+These blocks render only in the answer key. Sources supplied for course work
+stay in the course workspace and must not be committed to the public skill repo.
+
 ## 1. Corpus and priority
 
 Use the papers the user has authorised. A typical order:

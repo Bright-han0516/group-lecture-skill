@@ -75,6 +75,9 @@ Writing requirements:
   (jttab + \blank), key equation (\eqd/\key), textbook-style figure (\jtfig),
   worked example (\jtexample).
 - Every section ends with jtexamfocus + jtmisconception (2-4 bullets each).
+  Use concise reasoning and put the relevant visual next to the inference it supports.
+  Use \jtdefs for key definitions and \keyeq for essential relations with their
+  conditions; no fixed figure quota or formula requirement for every section.
   EXAM FOCUS: how it is asked, mark scheme, answer format. COMMON MISTAKES:
   what students actually get wrong.
 - Cover every understanding and guidance point in the syllabus.

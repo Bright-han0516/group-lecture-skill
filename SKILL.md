@@ -75,6 +75,26 @@ Rules that prevent parallel work from drifting:
   practice agent writes only `_p<N>.tex`, `exam*`, `practice_mapping.md`.
   Only the lead runs `build.sh`; parallel builds fight over `qa/build/`.
 
+## Default presentation and answer evidence
+
+- Keep prose concise, but preserve the reasoning: introduce the most useful
+  diagram, graph, comparison, timeline or worked figure where it explains a step.
+  Caption what the learner should notice. Prefer one informative visual over
+  decorative images; set no subject-independent figure quota.
+- Use \jtdefs for essential definitions and \keyeq for the relations learners
+  need to find quickly. Put conditions beside the relation and keep intermediate
+  steps in normal text/math. A section without an essential equation need not
+  have a formula box.
+- In the answer key, follow the worked solution with the corresponding official
+  MS excerpt by default if the actual source is supplied and reproduction is
+  authorised. Use \jtms{source and question part}{ms/file.png}, relative to
+  src/assets; a terse official answer-table entry may use \jtmsline for readability.
+  If an excerpt cannot be reproduced, record the verified citation in QA without
+  embedding it. If the official source is unavailable, record NOT MS VERIFIED.
+  Author-written items use \jtmarkpoints, never an official label.
+- Never expose answer evidence in the student edition or commit publisher assets
+  to this repository. Check that each excerpt matches the question part and is legible.
+
 ## Academic QA
 
 Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
@@ -125,8 +145,8 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
 
 ## Content contract
 
-- English body; each section has at least three element types: definition/comparison
-  table, key equation, textbook-style figure, worked example.
+- English body; combine definition/comparison tables, key relations, visuals and
+  worked examples as the objective requires. Use natural variation across sections.
 - Every section ends with `jtexamfocus` (2–4 bullets: how it is asked, mark scheme,
   answer format) and `jtmisconception` (2–4 bullets: common student errors).
 - Every chapter has `\jtprac` + `\jtexamtip` + 3–5 questions (at least one

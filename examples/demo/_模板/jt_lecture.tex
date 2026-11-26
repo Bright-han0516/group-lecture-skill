@@ -326,6 +326,38 @@
 \newcommand{\eqd}[1]{\par\vspace{1pt}\begin{equation*}#1\end{equation*}\vspace{-2pt}}
 % 关键句（深红加粗，用于“记住这条”类结论）
 \newcommand{\key}[1]{{\color{jtred}\bfseries #1}}
+% Short, discipline-neutral boxes. Use eqd for intermediate steps.
+\newtcolorbox{jtvisualbox}{%
+  enhanced,sharp corners,boxrule=0.5pt,colframe=jtred!48,colback=jtpale!50,
+  left=6pt,right=6pt,top=4pt,bottom=5pt,before skip=4pt,after skip=5pt}
+\newcommand{\jtvisualheading}[1]{%
+  {\sffamily\bfseries\color{jtred}\footnotesize #1\par}\nobreak\smallskip}
+\newcommand{\jtdefs}[1]{%
+  \begin{jtvisualbox}\jtvisualheading{KEY DEFINITIONS}#1\end{jtvisualbox}}
+\newcommand{\keyeq}[1]{%
+  \begin{jtvisualbox}\jtvisualheading{KEY RELATION}\(\displaystyle #1\)\end{jtvisualbox}}
+% Relative to src/assets/. Keep the caption and image together. Crop long
+% originals into legible parts instead of squeezing a full page into this block.
+\newcommand{\jtevidenceimage}[3]{%
+  \ifkey\par\addvspace{6pt}\noindent
+  \begin{minipage}{\linewidth}%
+    {\color{jtred}\sffamily\bfseries\small #1:}\enspace
+    {\color{jtnode}\small #2\par}\vspace{3pt}%
+    \centering
+    \IfFileExists{assets/#3}{%
+      \includegraphics[width=0.96\linewidth,height=0.40\textheight,keepaspectratio]{assets/#3}%
+    }{\textbf{[missing image]}}%
+  \end{minipage}\par\addvspace{5pt}\fi}
+\newcommand{\jtms}[2]{\jtevidenceimage{Official mark scheme}{#1}{#2}}
+\newcommand{\jtmsline}[2]{%
+  \ifkey\par\Needspace{3\baselineskip}\addvspace{5pt}\noindent
+  {\color{jtred}\sffamily\bfseries\small Official mark scheme:}\enspace
+  {\color{jtnode}\small #1\par}\nobreak
+  {\small #2\par}\fi}
+\newcommand{\jtmarkpoints}[1]{%
+  \ifkey\par\Needspace{3\baselineskip}\addvspace{5pt}\noindent
+  {\color{jtred}\sffamily\bfseries\small Author-written marking points:}\enspace
+  {\small #1\par}\fi}
 
 
 % ---------------------------------------------------------------- 真题考点说明
