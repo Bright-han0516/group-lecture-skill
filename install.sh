@@ -3,7 +3,7 @@
 # Usage: bash install.sh [--hosts codex|claude|all] [--check]
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
 HOSTS="all"
 CHECK=0
 while [ "$#" -gt 0 ]; do

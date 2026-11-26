@@ -44,6 +44,8 @@ jobs:
           test -f "$HOME/.agents/skills/group-lecture-builder/SKILL.md"
           bash install.sh --hosts codex
           tmp="$(mktemp -d)"
+          ln -s "$PWD" "$tmp/repo-alias"
+          bash "$tmp/repo-alias/install.sh" --hosts codex | grep -F 'OK already linked'
           python scripts/scaffold_topic.py --board CIE --root "$tmp/another-project" 3.1 Motion "Kinematics"
           test "$(cat "$tmp/another-project/31_Motion/.glb-board")" = "CIE"
           (cd "$tmp/another-project/31_Motion/src" && ./build.sh)

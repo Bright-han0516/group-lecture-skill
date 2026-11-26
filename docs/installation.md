@@ -1,5 +1,7 @@
 # Global install: Codex and Claude Code
 
+If you are asking an AI to install this for you, use the [short copy-paste prompt](../README.zh-CN.md#1-一段话让-ai-协助安装推荐). The [agent checklist](ai-install.md) covers installation, demo verification, and cross-project discovery separately.
+
 ## One command, once per computer
 
 For a public repository, run in macOS/Linux terminal (Windows: WSL):
