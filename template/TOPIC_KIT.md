@@ -36,7 +36,8 @@ After integration, the number of guards must equal the number of chapters.
 3. Each section has at least three of:
    - a definition/comparison table: `\begin{jttab}{...}` with a pink header and
      `\blank` cells;
-   - a key equation (`\eqd`) or key sentence (`\key`);
+   - a key equation (`\keyeq[<symbol legend>]{<equation>}`) or key sentence (`\key`);
+     define every formula symbol and give applicable units and conditions immediately below;
    - a textbook-style figure (`\jtfig`);
    - a worked example (`\jtexample`).
 4. Every section ends with both boxes:

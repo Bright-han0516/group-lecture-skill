@@ -1,4 +1,4 @@
-"""Check that the demo exercises the new boxes and that its scoring image stays key-only."""
+"""Check the demo boxes, symbol legends and answer-only scoring evidence."""
 from pathlib import Path
 from unicodedata import normalize
 
@@ -28,7 +28,26 @@ for edition in ("Student", "Key"):
         text = {page.number: normalize("NFKC", page.get_text()) for page in doc}
         all_text = "\n".join(text.values())
         require("KEY DEFINITIONS" in all_text, f"{edition}: missing definition box")
-        require("KEY RELATION" in all_text, f"{edition}: missing relation box")
+        require(all_text.count("KEY RELATION") == 3, f"{edition}: expected three relation boxes")
+        legend_groups = (
+            ("average velocity", "displacement", "elapsed time", "denotes a change"),
+            ("initial velocity", "final velocity", "acceleration", "displacement", "elapsed time", "Valid for constant acceleration"),
+            ("downward displacement", "acceleration due to gravity", "elapsed time", "downward positive"),
+        )
+        require(all_text.count("Symbols.") == len(legend_groups), f"{edition}: missing symbol legend")
+        for words in legend_groups:
+            require(
+                any(
+                    all(term in segment for term in words)
+                    for t in text.values()
+                    for segment in (
+                        " ".join(box.split()).split("Symbols.", 1)[1]
+                        for box in t.split("KEY RELATION")[1:]
+                        if "Symbols." in box
+                    )
+                ),
+                f"{edition}: symbols missing or not on the same page as the relation: {words}",
+            )
         require(image_pages(doc, "fig_demo_slope.png"), f"{edition}: missing explanatory figure")
         evidence = image_pages(doc, "ms/demo_scoring.png")
         caption_pages = {i for i, t in text.items() if "Demo scoring image (not official)" in t}
@@ -39,4 +58,4 @@ for edition in ("Student", "Key"):
             require(not (evidence or caption_pages), "student PDF contains demo scoring evidence")
             require("Author-written marking points" not in all_text, "student PDF contains marking points")
 
-print("PASS: demo visuals and boxes in both editions; scoring image, caption and points in Key only.")
+print("PASS: visual and formula-symbol checks in both editions; scoring evidence in Key only.")

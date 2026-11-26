@@ -10,10 +10,22 @@ CIE, IB or any publisher.
 
 ## Visual-first conventions
 
-Use \jtdefs{...} and \keyeq{...} for compact definition and essential-relation
-boxes. The latter takes a math expression without dollar delimiters. Put the
-condition beside the relation or in the preceding line. Use ordinary \eqd for
-working and only select a box when it helps a student find a key idea.
+Use `\jtdefs{...}` and `\keyeq[<symbol legend>]{<equation>}` for compact definition
+and essential-relation boxes. The required argument is a math expression without
+dollar delimiters, and the optional legend is text with inline math. It renders
+directly below the formula inside the same box, in both editions.
+
+```latex
+\keyeq[$\bar v$: average velocity (m\,s$^{-1}$);
+  $\Delta s$: displacement (m); $\Delta t$: elapsed time (s).
+  $\Delta$ denotes a change.]{\bar v=\frac{\Delta s}{\Delta t}}
+```
+
+For an unboxed teaching relation, place the same kind of legend on the next line.
+Include units where applicable and the assumptions or sign convention where they
+affect how the formula is used. A shared legend works only for visibly grouped
+formulas with the same notation. Rerender older courses after syncing their
+template; one-argument calls still compile, but new teaching formulas need legends.
 
 Figures, graphs, examples and timelines should each answer a real learning
 question; put them beside the explanation and caption the inference. Do not

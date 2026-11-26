@@ -81,10 +81,17 @@ Rules that prevent parallel work from drifting:
   diagram, graph, comparison, timeline or worked figure where it explains a step.
   Caption what the learner should notice. Prefer one informative visual over
   decorative images; set no subject-independent figure quota.
-- Use \jtdefs for essential definitions and \keyeq for the relations learners
-  need to find quickly. Put conditions beside the relation and keep intermediate
-  steps in normal text/math. A section without an essential equation need not
-  have a formula box.
+- Use `\jtdefs` for essential definitions and `\keyeq[<symbol legend>]{<equation>}`
+  for the relations learners need to find quickly. Directly below every standalone
+  teaching or reference formula (including in summary sheets), define every
+  quantity and meaningful constant, subscript, superscript or qualifier in order
+  of appearance; give units for measured quantities where applicable and major
+  assumptions or sign conventions. Keep each explanation with its formula and
+  visible in both editions, not in a blank or only in the key. An adjacent group
+  of formulas sharing notation may use one complete legend directly below the
+  group. In a continuous derivation, explain only new or redefined notation at its
+  first use. Do not rewrite publisher question or MS images. A section without an
+  essential equation need not have a formula box.
 - In the answer key, follow the worked solution with the corresponding official
   MS excerpt by default if the actual source is supplied and reproduction is
   authorised. Use \jtms{source and question part}{ms/file.png}, relative to
@@ -97,7 +104,7 @@ Rules that prevent parallel work from drifting:
 
 ## Academic QA
 
-Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
+Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations and symbol legends, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
 
 ## Build and QA
 
