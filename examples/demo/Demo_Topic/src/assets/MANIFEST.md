@@ -3,6 +3,8 @@
 | File | What it is | Source |
 |---|---|---|
 | fig_demo_vt.png | v–t graph for the demo body | Original, generated for this repo |
+| fig_demo_slope.png | Continuation graph connecting equal time steps to constant acceleration | Original, generated for this repo |
+| ms/demo_scoring.png | Illustrative author-written scoring image for Q2; not official | Original, generated for this repo |
 | q_demo.png | Demo MCQ 1 (text + graph) | Original, generated for this repo |
 | q_demo2.png | Demo structured question 2 | Original, generated for this repo |
 | header_demo.jpg | Cover header | Repo placeholder (`template/assets/header_default.jpg`) |

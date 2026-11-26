@@ -55,6 +55,11 @@ if ! "$PY" scripts/check_topic.py examples/demo/Demo_Topic; then
   exit 1
 fi
 
+if ! "$PY" examples/demo/check_features.py; then
+  echo "DEMO FEATURE QA FAILED: check the layout and answer-only evidence." >&2
+  exit 1
+fi
+
 cat <<'EOF'
 
 READY. The toolchain, fonts, rsfs and template work on this machine.

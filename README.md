@@ -8,10 +8,20 @@ A self-contained skill for building **group-style topic handouts**: one student 
 with blanks, one answer-key PDF with answers and Chinese worked solutions. The visual
 design is fixed in a LaTeX template; the model only fills content through macros.
 
+By default, keep explanations concise, pair them with useful visuals, and box
+core definitions and relations where applicable. In the answer key, place a
+legible official mark-scheme excerpt next to the solution when source and reuse
+permission are available. This does not make the public repository a source of
+exam materials.
+
 This repository is the portable distribution of the pipeline. It includes the
 template, the fonts, the `rsfs` fonts needed by `mathptmx`, placeholder assets, QA
 scripts and a runnable demo. It does **not** include past papers, textbook figures,
 mark schemes or any school/publisher branding.
+
+Existing courses may have a local template copy. A skill update does not
+rewrite older PDFs: sync the course template before using the new commands,
+retain project customisations, and rebuild both editions.
 
 ## Recommended onboarding
 
