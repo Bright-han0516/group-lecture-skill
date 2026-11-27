@@ -29,6 +29,10 @@ After integration, the number of guards must equal the number of chapters.
 
 ## 2. Body author
 
+Read the lead’s `qa/syllabus_scope.md` first. Check required knowledge, derivation
+and given-only material against the exact current assessment scope; leave
+unsupported additions out of both editions.
+
 1. Start from `jt_topic.tex`; the scaffold already replaced the code, title and
    header placeholders.
 2. Chapters group syllabus understandings (normally 3–5); sections are assessed
@@ -83,11 +87,13 @@ Per chapter:
 Requirements:
 
 - Q numbers continuous through the book; W numbers continuous and separate.
-- 3–5 questions per chapter, at least one structured/calculation; 1–2 written answers.
+- Aim for 3–5 in-scope questions and 1–2 written answers where appropriate; use
+  structured/calculation items when the subject calls for them.
 - Every source line names year, session, paper, time zone, level and Q number. Older
   syllabus: `\textit{(older syllabus)}`.
-- Chinese solution 2–5 sentences, against the official mark scheme, with the working
-  and final value. Recalculate.
+- Chinese solution with concise reasoning and the expected answer. Use the official
+  mark scheme when available; otherwise solve independently and mark
+  `NOT MS VERIFIED`. Recalculate numeric answers.
 - Crop at 4× with PyMuPDF; include the question number, stem, diagram, all parts or
   options, and the answer box. Exclude headers, adjacent questions and mark schemes.
   Split a cross-page question into `_p1` / `_p2`.
@@ -147,5 +153,7 @@ a key page yourself.
 - [ ] No internal path leak (`assets/`, `.tex`, home-directory paths, `GLB_`).
 - [ ] Fonts embedded; bookmarks = chapters + sections + practice blocks.
 - [ ] `qa/核对记录.md`, `qa/practice_mapping.md`, `src/assets/MANIFEST.md` written.
+- [ ] Evidence map checked against both editions; given-only material is not treated as recall.
+- [ ] Original QP/MS crops are unaltered; split parts retain necessary context.
 - [ ] Source lines checked; author-written items marked.
 - [ ] Print and classroom use recorded as tested or not tested — not assumed.

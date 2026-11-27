@@ -29,7 +29,15 @@ retain project customisations, and rebuild both editions.
 
 For nontechnical teachers, copy the installation prompt in the [Chinese quick-start guide](README.zh-CN.md#1-一段话让-ai-协助安装推荐) into a coding agent with local shell and filesystem access. The full agent-facing checklist lives in [docs/ai-install.md](docs/ai-install.md). A plain chat assistant cannot install a local skill or build PDFs. This workflow has primarily been designed/tested for physics and adjacent science materials; other subjects are experimental and must adapt content and question requirements to their own syllabus.
 
-Minimum source materials are a syllabus and authorised past questions. Textbooks and official mark schemes are recommended but optional; do not claim mark-scheme verification without the actual MS.
+Minimum source materials are the applicable official syllabus and authorised past
+questions. Textbooks and mark schemes are recommended, not mandatory. Without
+the official MS, label an independently solved in-scope exercise `NOT MS VERIFIED`.
+
+Before drafting, the [syllabus evidence gate](references/syllabus-evidence.md)
+checks the board, version, level and component, and maps each assessed point to
+evidence in `qa/syllabus_scope.md`. It distinguishes what students must know,
+derive or use when given. Unverified additions stay out of assessed content;
+authorised question and scoring excerpts retain their original content.
 
 ## 30-second environment check (not global installation)
 

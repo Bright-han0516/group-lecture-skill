@@ -5,6 +5,8 @@ card too long.
 
 | File | Read it when |
 |---|---|
+| `syllabus-evidence.md` | Before planning or drafting. Verify the precise scope and map what is recalled, derived or provided. |
+| `academic-qa.md` | Before handoff. Review the academic evidence in both editions. |
 | `pipeline.md` | Before starting a topic. Phase 0–5, the two agent prompts, batch rules. |
 | `layout-and-macros.md` | Before writing body text. Design tokens and every macro. |
 | `practice-and-questions.md` | Before selecting or cropping questions. Corpus, crops, numbering, Chinese solutions. |

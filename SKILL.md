@@ -39,12 +39,24 @@ output constraints.
 **Do not start writing if the syllabus or the question corpus is missing.** Say what
 is missing; never invent a paper, year, question number, page or mark.
 
+## Syllabus and past-paper evidence gate (required before drafting)
+
+Read [the evidence gate](references/syllabus-evidence.md). Lock the exact board,
+subject/code, current specification and assessment years, level, and component.
+Create `qa/syllabus_scope.md` with the official clauses, compatible verified
+past-paper applications, and exclusions. Distinguish **recall / know**,
+**derive / justify**, and **given / use in context**. A given relationship,
+question context or optional MS route is not automatically a recall point.
+Keep unsupported or out-of-scope claims out of assessed content, including
+the answer key, and never add topics to hit a quota.
+
 ## Inputs (ask only for what is missing)
 
 1. **Board + topic code**, e.g. `IB DP Physics A.3` or `CIE 9702 3.1`.
 2. **Level and teaching hours** (use the board-specific level convention from `references/boards.md`; 4 h, 8 h, 14 h ...).
-3. **Chapter map**: 3–5 chapters × 2–4 sections, grouped from the syllabus
-   understandings. Show it to the user once before writing.
+3. **Chapter map**: Usually 3–5 chapters × 2–4 sections, grouped from the verified
+   scope. Do not add unsupported content to meet a target. Show the map to the
+   user once before writing.
 4. **Course root**: the directory that will hold `_模板/` and `<Code>_<Name>/`.
    Default: `$GLB_ROOT`, else the current directory.
 5. **Question corpus range**: which past papers and mark schemes may be used.
@@ -58,7 +70,7 @@ The full checklist, including the textbook and mark-scheme paths, is in
 | Phase | Who | Output |
 |---|---|---|
 | 0 Scaffold | lead | `python3 "<SKILL_ROOT>/scripts/scaffold_topic.py" --board IB --root <course> A.3 Energy "Work, energy and power"` |
-| 1 Chapter map | lead | 3–5 chapters × 2–4 sections, written into `qa/chapter_map.md`; one user confirmation |
+| 1 Chapter map | lead | approved scope in `qa/syllabus_scope.md` and chapter structure in `qa/chapter_map.md`; one user confirmation |
 | 2 Body | body agent | `src/<Stem>.tex` + `src/assets/fig_*.png` + `MANIFEST.md` |
 | 3 Practice | practice agent, parallel | `src/<Stem>_p<N>.tex` + `src/assets/exam*/` + `qa/practice_mapping.md` |
 | 4 Integrate | lead only | clean rebuild, QA, page spot-check |
@@ -104,7 +116,7 @@ Rules that prevent parallel work from drifting:
 
 ## Academic QA
 
-Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, equations and symbol legends, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
+Before teacher handoff, read `references/academic-qa.md` and create `qa/academic_review.md`. Verify syllabus coverage, then check each assessed claim in both editions against the scope table. Review equations and symbol legends, calculations, provenance, question/answer mapping and optional mark-scheme evidence. Do not claim MS verification when no official MS was supplied. Teachers make the final teaching and visual-design judgement.
 
 ## Build and QA
 
@@ -156,16 +168,18 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
   worked examples as the objective requires. Use natural variation across sections.
 - Every section ends with `jtexamfocus` (2–4 bullets: how it is asked, mark scheme,
   answer format) and `jtmisconception` (2–4 bullets: common student errors).
-- Every chapter has `\jtprac` + `\jtexamtip` + 3–5 questions (at least one
-  structured/calculation) + 1–2 written answers.
+- Every chapter has `\jtprac` + `\jtexamtip` and practice within the verified
+  scope. Aim for 3–5 questions and 1–2 written answers where appropriate;
+  include a structured or calculation item when the subject calls for one.
 - Q numbers are continuous across the book; W numbers are continuous and separate.
 - Every question has a source line: year, session, paper, time zone, level, Q number.
-  Older-syllabus questions are marked `(older syllabus)`. Self-written written
-  questions use `\jtselfq`; author-written MCQ/structured questions put
+  Older-syllabus questions must be compatible with the current scope and marked
+  `(older syllabus)`. Keep authorised QP/MS crops unchanged and keep dependencies
+  beside any split question. Author-written response questions use `\jtselfq`; author-written MCQ/structured questions put
   `Author-written` in the source line. Neither may pretend to be a past paper.
-- Chinese solutions: 2–5 sentences, written against the official mark scheme, with
-  the working and the final value. Recalculate numbers; do not copy a solution you
-  have not checked.
+- Chinese solutions: concise reasoning and the expected answer. Align with the
+  official mark scheme when available; otherwise solve independently and mark
+  `NOT MS VERIFIED`. Recalculate numbers when applicable.
 
 ## Files
 
@@ -178,7 +192,7 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
    ├─ src/build.sh         generic build (do not edit per topic)
    ├─ src/assets/          fig_*, exam*/, MANIFEST.md
    ├─ dist/                IB_<Slug>_GroupLecture_{Student,Key}.pdf
-   └─ qa/                  核对记录.md, practice_mapping.md, build/
+   └─ qa/                  syllabus_scope.md, academic_review.md, practice_mapping.md, build/
 ```
 
 ## Limits
@@ -196,7 +210,8 @@ The template is `template/jt_lecture.tex`. Body files **call macros only**:
 
 - `docs/installation.md` — user-level cross-project installation and checks.
 - `references/boards.md` — board-specific nomenclature and source rules.
-- `references/academic-qa.md` — source-grounded physics content QA.
+- `references/syllabus-evidence.md` — scope, assessment demands and evidence map.
+- `references/academic-qa.md` — source-grounded subject content QA.
 
 - `references/pipeline.md` — full phase detail and the two agent prompts.
 - `references/layout-and-macros.md` — design tokens and every macro.
