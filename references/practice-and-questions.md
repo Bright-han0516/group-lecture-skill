@@ -2,6 +2,7 @@
 
 The practice blocks are what make the handout different from a textbook chapter.
 This file covers the corpus, the crops, numbering and the Chinese solutions.
+Apply the [syllabus evidence gate](syllabus-evidence.md) before selecting items.
 
 ## Answer-key evidence
 
@@ -30,7 +31,7 @@ Use the papers the user has authorised. A typical order:
 | Priority | Corpus | Note |
 |---|---|---|
 | 1 | The most recent full papers for the current syllabus | Best match for question style and wording |
-| 2 | Older-syllabus papers that still map to the topic | Mark every source line `(older syllabus)` |
+| 2 | Older-syllabus items verified as compatible with the current scope, demand and level | Mark every source line `(older syllabus)` |
 | 3 | Author-written questions | Only when the corpus has no usable question; must use `\jtselfq` |
 
 Before selecting, make a table **chapter point → matching questions**. Aim for at
@@ -87,6 +88,10 @@ Naming:
 
 Store in `src/assets/exam2/` (recent) and `src/assets/exam3/` (older/written).
 Keep the mapping from file to source in `qa/practice_mapping.md`.
+
+If a split subpart depends on an earlier stem, figure, result or instruction,
+include the original context or add a labelled note beside the unaltered crop.
+Never silently rewrite a QP or official MS image.
 
 ## 3. Numbering and marks
 

@@ -33,8 +33,10 @@ Checks:
 
 ## Phase 1 · Chapter map
 
-1. Extract the topic's understandings and guidance from `{{SYLLABUS}}`.
-2. Group them into **3–5 chapters × 2–4 sections**. Chapter titles are English
+1. Run the [syllabus and past-paper evidence gate](syllabus-evidence.md):
+   identify current objectives, compatible verified applications and exclusions
+   in `{{DIR}}/qa/syllabus_scope.md`.
+2. Group verified content, typically into **3–5 chapters × 2–4 sections**. Chapter titles are English
    phrases, not "Chapter 3: ...". Section titles are the assessed points.
 3. Write the map into `{{DIR}}/qa/chapter_map.md`. It is the only numbering source
    for both authors.
@@ -59,7 +61,7 @@ Read first:
 1. {{COURSE_ROOT}}/_模板/TOPIC_KIT.md (rules; do not edit template macros)
 2. references/layout-and-macros.md (tokens and macro list)
 3. {{DIR}}/qa/chapter_map.md (use these chapter/section numbers; do not renumber)
-4. {{SYLLABUS}} (understandings and guidance for {{CODE}})
+4. {{SYLLABUS}} and {{DIR}}/qa/syllabus_scope.md (objectives, supported demands and exclusions)
 5. {{TEXTBOOK_PDF}} (PDF page = printed page + {{OFFSET}})
 6. examples/demo/Demo_Topic/src/Demo.tex (minimal working pattern)
 
@@ -73,7 +75,8 @@ Target file: {{DIR}}/src/{{STEM}}.tex (the scaffold; rewrite it completely).
 Writing requirements:
 - English body. Each section has at least three of: definition/comparison table
   (jttab + \blank), key equation (\eqd/\key), textbook-style figure (\jtfig),
-  worked example (\jtexample).
+  worked example (\jtexample), where supported by the approved scope. Use fewer
+  rather than padding a section.
 - Every section ends with jtexamfocus + jtmisconception (2-4 bullets each).
   Use concise reasoning and put the relevant visual next to the inference it supports.
   Use \jtdefs for key definitions and \keyeq with a symbol legend for essential
@@ -82,7 +85,8 @@ Writing requirements:
   No fixed figure quota or formula requirement for every section.
   EXAM FOCUS: how it is asked, mark scheme, answer format. COMMON MISTAKES:
   what students actually get wrong.
-- Cover every understanding and guidance point in the syllabus.
+- Cover in-scope objectives. Check that equations, captions, exam tips and worked
+  examples do not turn given-only information or out-of-scope material into requirements.
 - Target: {{PAGES}} pages of body text. Prefer 20 solid pages over 30 padded ones.
 
 Build and self-check:
@@ -120,7 +124,7 @@ Read first:
 2. references/practice-and-questions.md
 3. {{DIR}}/qa/chapter_map.md (practice blocks follow the same chapter titles)
 4. examples/demo/Demo_Topic/src/Demo_p1.tex and Demo_p2.tex (minimal patterns)
-5. {{SYLLABUS}} (defines the boundary of what may be asked)
+5. {{SYLLABUS}} and {{DIR}}/qa/syllabus_scope.md (current assessment boundary)
 
 Output:
 - {{DIR}}/src/{{STEM}}_p1.tex ... p{{N}}.tex
@@ -130,18 +134,21 @@ Output:
 
 Per chapter:
 - \jtprac{}{<chapter practice title>} + \jtexamtip{Common patterns: ...}
-- 3-5 questions, at least one structured/calculation
-- 1-2 written answers: \jtconcept{}{...} + \jtwritten{W<n>}{source}{marks}{image}
+- Aim for 3-5 in-scope questions; use structured/calculation items when appropriate.
+- Where appropriate, 1-2 written answers: \jtconcept{}{...} + \jtwritten{W<n>}{source}{marks}{image}
 - Q numbers continuous across the book; W numbers continuous and separate.
 
 Rules:
 - Source line: year, session, paper, time zone, level, Q number. Older syllabus:
   \textit{(older syllabus)}. Never invent a year, paper or question number.
-- Chinese solution: 2-5 sentences against the official mark scheme, with working
-  and final value. Recalculate every number.
+- Chinese solution: concise reasoning and the expected answer. Use the official
+  mark scheme when available or independently solve and mark NOT MS VERIFIED.
+  Recalculate every numeric answer.
 - Crop at 4x with PyMuPDF; include question number, stem, diagram, all parts or
   options, and the answer box. Exclude headers, neighbouring questions and the
   mark scheme. Split a cross-page question into _p1/_p2.
+- Match the primary QP and scoring source by paper/variant and part. Keep
+  original crops unchanged; restore necessary earlier context beside the crop.
 - Inspect every crop with the host's image viewer. Re-crop until clean.
 - If the corpus has no question for a point, use \jtselfq (prints
   "Author-written exam-style question") and say so in the mapping. Never dress an
@@ -152,7 +159,7 @@ Reply with: questions per block, total marks, W count, image count, source
 distribution, and gaps.
 ```
 
-Corpus priority: recent full papers first; older syllabus papers to fill gaps;
+Corpus priority: recent full papers first; compatible older-syllabus papers to fill gaps;
 author-written only when the corpus genuinely has nothing. One sub-question may be
 split across chapters, but the same sub-question must not appear twice. Scan
 `{{COURSE_ROOT}}/*/src/assets/exam*/` and existing `practice_mapping.md` files to
